@@ -19,7 +19,7 @@
 
 		],
 
-		showImage		: false,
+		showImage		: true,
 		showLogs		: false,
 
 		preload			: "none",

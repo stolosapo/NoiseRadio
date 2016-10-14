@@ -22,7 +22,7 @@ First let’s add some reset styles for all the elements that we will use in the
 }
 
 .noise-radio .nr-controls {
-	background-image: url('../img/bgr/blueprint-dark.png');
+	background-image: url('../img/blueprint-dark.png');
 	background-color: rgba(213, 231, 242, 0.4577);
  }
 
@@ -110,28 +110,30 @@ Let’s position the title and cover on the player container and then add some t
 	border-radius: 6px;
 
 	background-color: rgba(213, 231, 242, 0.4577);
+	background-image: url('../img/blueprint-dark.png');
 }
 
 .noise-radio .nr-status-element {
+	position: absolute;
+
 	font-family: 'Aldrich';
 	font-size: 10px;
 	font-weight: 300;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	color: #666;
 	text-shadow: 0 1px 1px rgba(255,255,255,0.8);
 
-	position: absolute;
-
-	width: 100%;
+	width: 99%;
+	height: 12px;
 	bottom: 40%;
-	padding: 10px;
+	padding: 10px 0.5% 10px 0.5%;
 
 	border: 1px solid rgba(0,0,0,0.1);
 	border-bottom-color: rgba(255,255,255,0.6);
 	border-radius: 6px;
 
-	background-color: rgba(213, 231, 242, 0.4577);	
+	background-color: rgba(213, 231, 242, 0.4577);
+	background-image: url('../img/blueprint-dark.png');
 }
 
 .noise-radio .nr-control-image {
@@ -146,13 +148,6 @@ ul.nr-controls {
 	padding: 0;
 	position: absolute;
 	bottom: 9%;
-	background: -moz-linear-gradient(top, rgba(170,170,170,0.35) 0%, rgba(255,255,255,0.44) 50%, rgba(255,255,255,0.53) 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(170,170,170,0.35)), color-stop(50%,rgba(255,255,255,0.44)), color-stop(100%,rgba(255,255,255,0.53)));
-	background: -webkit-linear-gradient(top, rgba(170,170,170,0.35) 0%,rgba(255,255,255,0.44) 50%,rgba(255,255,255,0.53) 100%);
-	background: -o-linear-gradient(top, rgba(170,170,170,0.35) 0%,rgba(255,255,255,0.44) 50%,rgba(255,255,255,0.53) 100%);
-	background: -ms-linear-gradient(top, rgba(170,170,170,0.35) 0%,rgba(255,255,255,0.44) 50%,rgba(255,255,255,0.53) 100%);
-	background: linear-gradient(to bottom, rgba(170,170,170,0.35) 0%,rgba(255,255,255,0.44) 50%,rgba(255,255,255,0.53) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#59aaaaaa', endColorstr='#87ffffff',GradientType=0 );
 	border: 1px solid rgba(0,0,0,0.1);
 	border-bottom-color: rgba(255,255,255,0.6);
 	padding: 8px;
@@ -174,13 +169,13 @@ ul.nr-controls li {
 	display: block;
 	float: left;
 	width: 80px;
-    height: 50px;
+    height: 35px;
 	line-height: 55px;
 	text-align: left;
     padding: 10px;
 	margin: 0;
     cursor: pointer;
-    background: #ddd url(../img/radio/metal.jpg) no-repeat center top;
+    background: #ddd no-repeat center top;
 	box-shadow: 
 		inset 0 0 0 1px rgba(0,0,0, 0.2), 
 		inset 0 0 1px 2px rgba(255,255,255,0.9),
@@ -228,9 +223,8 @@ ul.nr-controls li span:before{
 	text-align: center;
 }
 
-li.nr-control-play span:before { content: '\70'; } 
-li.nr-control-pause span:before { content: '\50'; } 
-li.nr-control-stop span:before { content: '\25aa'; } 
+li.nr-control-play span:before { content: '>'; } 
+li.nr-control-pause span:before { content: '||'; } 
 
 ul.nr-controls li:hover{
 	box-shadow: 
@@ -245,7 +239,6 @@ ul.nr-controls li:hover{
 ul.nr-controls li.nr-control-active{
 	height: 50px;
 	margin-top: 2px;
-	background-image: url(../img/radio/metal_dark.jpg);
 	box-shadow: 
 		inset 0 0 0 1px rgba(0,0,0, 0.18), 
 		inset 0 0 1px 2px rgba(255,255,255,0.5),
@@ -259,7 +252,7 @@ ul.nr-controls li.nr-control-active{
 ul.nr-controls li.nr-control-pressed,
 ul.nr-controls li.nr-control-active.nr-control-pressed{
 	height: 50px;
-	background-image: url(../img/radio/metal_dark.jpg);
+
 	margin-top: 4px;
 	box-shadow: 
 		inset 0 0 0 1px rgba(0,0,0, 0.2), 
@@ -287,13 +280,7 @@ See knobKnob.css for the knob style
 	bottom: 8%;
 	left: 2%;
 	margin-left: -318px;
-	background: -moz-linear-gradient(top, rgba(170,170,170,0.35) 0%, rgba(255,255,255,0.44) 50%, rgba(255,255,255,0.53) 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(170,170,170,0.35)), color-stop(50%,rgba(255,255,255,0.44)), color-stop(100%,rgba(255,255,255,0.53)));
-	background: -webkit-linear-gradient(top, rgba(170,170,170,0.35) 0%,rgba(255,255,255,0.44) 50%,rgba(255,255,255,0.53) 100%);
-	background: -o-linear-gradient(top, rgba(170,170,170,0.35) 0%,rgba(255,255,255,0.44) 50%,rgba(255,255,255,0.53) 100%);
-	background: -ms-linear-gradient(top, rgba(170,170,170,0.35) 0%,rgba(255,255,255,0.44) 50%,rgba(255,255,255,0.53) 100%);
-	background: linear-gradient(to bottom, rgba(170,170,170,0.35) 0%,rgba(255,255,255,0.44) 50%,rgba(255,255,255,0.53) 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#59aaaaaa', endColorstr='#87ffffff',GradientType=0 );
+	background: #ddd no-repeat center top;
 	border: 1px solid rgba(0,0,0,0.1);
 	border-radius: 50%;
 	padding: 8px;
@@ -317,12 +304,11 @@ See knobKnob.css for the knob style
 /* Text style for controls */
 ul.nr-controls li,
 .nr-volume-wrap:after {
-	font-family: 'Aldrich';
+	/*font-family: 'Aldrich';*/
 	font-size: 10px;
 	font-weight: 300;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	color: #666;
 	text-shadow: 0 1px 1px rgba(255,255,255,0.8);
 }
 
@@ -336,7 +322,6 @@ ul.nr-controls li,
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	background: url(../img/radio/knob.jpg) no-repeat center center;
 	z-index: 10;
 	cursor: default !important;
 	border-radius: 50%;
