@@ -1,40 +1,27 @@
-@import url('radio/normalize.css');
-/* Icon font for player controls */
-@font-face {
-	font-family: 'playericons';
-	src: 	url("radio/fonts/playericons.eot");
-	src: 	url("radio/fonts/playericons.eot?#iefix") format('embedded-opentype'), 
-		url("radio/fonts/playericons.woff") format('woff'), 
-		url("radio/fonts/playericons.ttf") format('truetype'), 
-		url("radio/fonts/playericons.svg#playericons") format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-/****** RADIO PLAYER **********/
+/****** NOISE RADIO PLAYER **********/
 
 /* 
 Step 3 – Container Styles
 -----------------------------
 First let’s add some reset styles for all the elements that we will use in the container. 
 */
-.radio-player,
-.radio-player div,
-.radio-player img,
-.radio-player ul,
-.radio-player textarea,
-.radio-player label {
+.noise-radio,
+.noise-radio div,
+.noise-radio img,
+.noise-radio ul,
+.noise-radio textarea,
+.noise-radio label {
     margin: 0;
     padding: 0;
     border: none;
     outline: none;
 }
 
-.radio-player ul {
+.noise-radio ul {
 	list-style-type: none;
 }
 
-.radio-player .rp-controls {
+.noise-radio .nr-controls {
 	background-image: url('../img/bgr/blueprint-dark.png');
 	background-color: rgba(213, 231, 242, 0.4577);
  }
@@ -47,7 +34,7 @@ Now let’s style the player container,
 we will set the width to 400px and height to 120px. 
 We will also add a css3 background gradient and rounded corners.
 */
-div.radio-player {
+div.noise-radio {
     position: relative;
 	
 	margin-right: auto;
@@ -75,14 +62,14 @@ Step 4 – Title & Cover
 ----------------------
 Let’s position the title and cover on the player container and then add some typography styles for the title.
 */
-.radio-player .rp-controls {
+.noise-radio .nr-controls {
 	position: absolute;
 	
     height: 20%;
     right: 0;
 }
 
-.radio-player h1 {
+.noise-radio h1 {
     position: absolute;
     top: 10px;
     left: 150px;
@@ -93,7 +80,7 @@ Let’s position the title and cover on the player container and then add some t
     text-shadow: 1px 1px 1px rgba(0,0,0, .5);
 }
  
- .radio-player .header {
+ .noise-radio .header {
 	position: absolute;
     top: 37px;
     left: 0;
@@ -101,7 +88,7 @@ Let’s position the title and cover on the player container and then add some t
 	height: 37px;
  }
  
-.radio-player .cover {
+.noise-radio .cover {
     position: absolute;
     top: 0;
     left: 0;
@@ -110,7 +97,7 @@ Let’s position the title and cover on the player container and then add some t
 	height: 382px;
 }
 
-.radio-player .rp-log-element {
+.noise-radio .nr-log-element {
 	position: absolute;
 
 	resize: none;
@@ -125,7 +112,7 @@ Let’s position the title and cover on the player container and then add some t
 	background-color: rgba(213, 231, 242, 0.4577);
 }
 
-.radio-player .rp-status-element {
+.noise-radio .nr-status-element {
 	font-family: 'Aldrich';
 	font-size: 10px;
 	font-weight: 300;
@@ -147,14 +134,14 @@ Let’s position the title and cover on the player container and then add some t
 	background-color: rgba(213, 231, 242, 0.4577);	
 }
 
-.radio-player .rp-control-image {
+.noise-radio .nr-control-image {
 	border-radius: 12px;
 }
 
 
 
 /* Controls list */
-ul.rp-controls {
+ul.nr-controls {
 	list-style: none;
 	padding: 0;
 	position: absolute;
@@ -183,7 +170,7 @@ ul.rp-controls {
 }
 
 /* Controls list items */
-ul.rp-controls li {
+ul.nr-controls li {
 	display: block;
 	float: left;
 	width: 80px;
@@ -209,20 +196,20 @@ ul.rp-controls li {
 }
 
 
-ul.rp-controls li:first-child{
+ul.nr-controls li:first-child{
 	border-radius: 8px 0 0 8px;
 }
 
-ul.rp-controls li:last-child{
+ul.nr-controls li:last-child{
 	border-radius: 0px 8px 8px 0px;
 }
 
-ul.rp-controls li.rp-control-play{
+ul.nr-controls li.nr-control-play{
 	width: 120px;
 }
 
 /* Control icons */
-ul.rp-controls li span:before{
+ul.nr-controls li span:before{
 	font-size: 16px;
 	line-height: 50px;
 	text-align: center;
@@ -241,11 +228,11 @@ ul.rp-controls li span:before{
 	text-align: center;
 }
 
-li.rp-control-play span:before { content: '\70'; } 
-li.rp-control-pause span:before { content: '\50'; } 
-li.rp-control-stop span:before { content: '\25aa'; } 
+li.nr-control-play span:before { content: '\70'; } 
+li.nr-control-pause span:before { content: '\50'; } 
+li.nr-control-stop span:before { content: '\25aa'; } 
 
-ul.rp-controls li:hover{
+ul.nr-controls li:hover{
 	box-shadow: 
 		inset 0 0 0 1px rgba(0,0,0, 0.2), 
 		inset 0 0 1px 2px rgba(255,255,255,0.9),
@@ -255,7 +242,7 @@ ul.rp-controls li:hover{
 }
 
 /* Pressed (active) */
-ul.rp-controls li.rp-control-active{
+ul.nr-controls li.nr-control-active{
 	height: 50px;
 	margin-top: 2px;
 	background-image: url(../img/radio/metal_dark.jpg);
@@ -269,8 +256,8 @@ ul.rp-controls li.rp-control-active{
 }
 
 /* Activated */
-ul.rp-controls li.rp-control-pressed,
-ul.rp-controls li.rp-control-active.rp-control-pressed{
+ul.nr-controls li.nr-control-pressed,
+ul.nr-controls li.nr-control-active.nr-control-pressed{
 	height: 50px;
 	background-image: url(../img/radio/metal_dark.jpg);
 	margin-top: 4px;
@@ -293,7 +280,7 @@ ul.rp-controls li.rp-control-active.rp-control-pressed{
 Background for the volume knob 
 See knobKnob.css for the knob style
 */
-.rp-volume-wrap {
+.nr-volume-wrap {
 	width: 100px;
 	height: 100px;
 	position: absolute;
@@ -321,15 +308,15 @@ See knobKnob.css for the knob style
 	box-sizing: content-box;
 }
 
-.rp-volume-wrap:after {
+.nr-volume-wrap:after {
 	content: 'Volume';
 	margin-top: 15px;
 	display: block;
 }
 
 /* Text style for controls */
-ul.rp-controls li,
-.rp-volume-wrap:after {
+ul.nr-controls li,
+.nr-volume-wrap:after {
 	font-family: 'Aldrich';
 	font-size: 10px;
 	font-weight: 300;

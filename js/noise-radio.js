@@ -1,21 +1,21 @@
 ( function( window, $, undefined ) {
 
 
-	/* Radio Player Oblect */
+	/* Noise Radio Oblect */
 
-	$.RadioPlayer				= function ( options, element ) {
+	$.NoiseRadio				= function ( options, element ) {
 
 		this.$el = $(element);
 		this._init(options);
 
 	};
 
-	$.RadioPlayer.defaults		= {
+	$.NoiseRadio.defaults		= {
 
 		sources			: [ 
 
-			{ src: "http://radio.thefirstkube.net/sound/PinkNoise.mp3", type: "audio/mpeg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
-			{ src: "http://radio.thefirstkube.net/sound/PinkNoise.ogg", type: "audio/ogg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
+			{ src: "noise/PinkNoise.mp3", type: "audio/mpeg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
+			{ src: "noise/PinkNoise.ogg", type: "audio/ogg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
 
 		],
 
@@ -32,14 +32,14 @@
 
 	};
 
-	$.RadioPlayer.prototype		= {
+	$.NoiseRadio.prototype		= {
 
 		_init				: function ( options ) {
 
 			var _self = this;
 
 			// the options
-			this.options		= $.extend(true, {}, $.RadioPlayer.defaults, options);
+			this.options		= $.extend(true, {}, $.NoiseRadio.defaults, options);
 
 			// create player
 			_self._createPlayer();
@@ -51,7 +51,7 @@
 
 		_createPlayerDiv	: function() {
 
-			this.$containerEl = $( '<div id="radio-player" class="radio-player"></div>' );
+			this.$containerEl = $( '<div id="noise-radio" class="noise-radio"></div>' );
 
 			this.$el.prepend( this.$containerEl );
 
@@ -63,7 +63,7 @@
 			this._createPlayerDiv();
 
 			// create a new HTML5 audio element
-			this.$audioEl	= $( '<audio id="radio-element" preload="' + this.options.preload + '" loop="' + this.options.loop + '"><p>' + this.options.fallbackMessage + '</p></audio>' );
+			this.$audioEl	= $( '<audio id="noise-element" preload="' + this.options.preload + '" loop="' + this.options.loop + '"><p>' + this.options.fallbackMessage + '</p></audio>' );
 
 			this.$containerEl.prepend( this.$audioEl );
 
@@ -100,13 +100,13 @@
 
 			var _self		= this;
 
-			// this.$controls 	= $( '<ul class="rp-controls" />' );
-			this.$controls 	= $( '<ul class="rp-controls" style="display:none;"/>' );
+			// this.$controls 	= $( '<ul class="nr-controls" />' );
+			this.$controls 	= $( '<ul class="nr-controls" style="display:none;"/>' );
 
-			this.$cPlay		= $( '<li class="rp-control-button rp-control-play">Play<span></span></li>' );
-			this.$cPause	= $( '<li class="rp-control-button rp-control-pause">Pause<span></span></li>' );
-			this.$cStop		= $( '<li class="rp-control-button rp-control-stop">Stop<span></span></li>' );
-			this.$cReset	= $( '<li class="rp-control-button rp-control-reset">Reset<span></span></li>' );
+			this.$cPlay		= $( '<li class="nr-control-button nr-control-play">Play<span></span></li>' );
+			this.$cPause	= $( '<li class="nr-control-button nr-control-pause">Pause<span></span></li>' );
+			this.$cStop		= $( '<li class="nr-control-button nr-control-stop">Stop<span></span></li>' );
+			this.$cReset	= $( '<li class="nr-control-button nr-control-reset">Reset<span></span></li>' );
 
 			this.$controls.append( this.$cPlay )
 						  .append( this.$cPause )
@@ -144,8 +144,8 @@
 			
 			if (this.options.volumeType === 'controls') {
 
-				this.$cVolUp	= $( '<li class="rp-control-button rp-control-vol-up">Vol Up<span></span></li>' );
-				this.$cVolDown	= $( '<li class="rp-control-button rp-control-vol-down">Vol Down<span></span></li>' );
+				this.$cVolUp	= $( '<li class="nr-control-button nr-control-vol-up">Vol Up<span></span></li>' );
+				this.$cVolDown	= $( '<li class="nr-control-button nr-control-vol-down">Vol Down<span></span></li>' );
 
 				this.$controls.append( this.$cVolUp )
 							  .append( this.$cVolDown );
@@ -154,11 +154,11 @@
 
 			else if (this.options.volumeType === 'knob') {
 
-				this.$volume 	= $( '<div style="display:none;" class="rp-volume-wrap"><div class="rp-volume-control"><div class="rp-volume-knob"></div></div></div>')
+				this.$volume 	= $( '<div style="display:none;" class="nr-volume-wrap"><div class="nr-volume-control"><div class="nr-volume-knob"></div></div></div>')
 				.appendTo( this.$containerEl );
 
 				this.$volume.show();
-				this.$volume.find( 'div.rp-volume-knob' ).knobKnob({
+				this.$volume.find( 'div.nr-volume-knob' ).knobKnob({
 					snap : 10,
 					value: 359 * this.options.initialVolume,
 					turn : function( ratio ) {
@@ -174,7 +174,7 @@
 
 		_createStatusElement: function() {
 
-			this.$statusElement 	= $( '<label class="rp-status-element"></label>' );
+			this.$statusElement 	= $( '<label class="nr-status-element"></label>' );
 
 			this.$statusElement.appendTo( this.$containerEl );
 			this.$statusElement.show();
@@ -183,7 +183,7 @@
 
 		_createLogElement	: function() {
 
-			this.$logElement 		= $( '<textarea class="rp-log-element" readonly></textarea>' );
+			this.$logElement 		= $( '<textarea class="nr-log-element" readonly></textarea>' );
 
 			this.$logElement.appendTo( this.$containerEl );
 
@@ -203,7 +203,7 @@
 				return;
 			}
 
-			this.$imgElement 	= $( '<img class="rp-control-image"></img>' );
+			this.$imgElement 	= $( '<img class="nr-control-image"></img>' );
 
 			this.$imgElement.appendTo( this.$containerEl );
 			this.$imgElement.show();
@@ -397,11 +397,11 @@
 
 		_setButtonActive	: function( $button ) {
 
-			$button.addClass( 'rp-control-pressed' );
+			$button.addClass( 'nr-control-pressed' );
 
 			setTimeout( function() {
 				
-				$button.removeClass( 'rp-control-pressed' );	
+				$button.removeClass( 'nr-control-pressed' );	
 				
 			}, 100 );
 
@@ -409,7 +409,7 @@
 
 		_updateButtons		: function( button ) {
 
-			var pressedClass = 'rp-control-active';
+			var pressedClass = 'nr-control-active';
 
 			if (button === 'volUp' || button === 'volDown' ) {
 				return;
@@ -713,9 +713,9 @@
 	};
 
 
-	/* Radio Player Factory */
+	/* Noise Radio Factory */
 
-	$.fn.radioPlayer			= function( options ) {
+	$.fn.noiseRadio			= function( options ) {
 		
 		if ( typeof options === 'string' ) {
 			
@@ -723,11 +723,11 @@
 			
 			this.each(function() {
 			
-				var instance = $.data( this, 'radioPlayer' );
+				var instance = $.data( this, 'noiseRadio' );
 				
 				if ( !instance ) {
 
-					window.console.error( "cannot call methods on radioPlayer prior to initialization; " +
+					window.console.error( "cannot call methods on noiseRadio prior to initialization; " +
 					"attempted to call method '" + options + "'" );
 					return;
 				
@@ -735,7 +735,7 @@
 				
 				if ( !$.isFunction( instance[ options ] ) || options.charAt(0) === "_" ) {
 
-					window.console.error( "no such method '" + options + "' for radioPlayer instance" );
+					window.console.error( "no such method '" + options + "' for noiseRadio instance" );
 					return;
 				
 				}
@@ -749,10 +749,10 @@
 		
 			this.each(function() {
 			
-				var instance = $.data( this, 'radioPlayer' );
+				var instance = $.data( this, 'noiseRadio' );
 				
 				if ( !instance ) {
-					$.data( this, 'radioPlayer', new $.RadioPlayer( options, this ) );
+					$.data( this, 'noiseRadio', new $.NoiseRadio( options, this ) );
 				}
 
 			});
