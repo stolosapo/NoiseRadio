@@ -103,7 +103,7 @@ Let’s position the title and cover on the player container and then add some t
 	resize: none;
 	overflow: auto;
 
-	bottom: 35%;
+	bottom: 49%;
 	width: 100%;
 	right: 0;
 
@@ -191,17 +191,26 @@ ul.nr-controls li {
 }
 
 
-ul.nr-controls li:first-child{
+ul.nr-controls li:first-child {
 	border-radius: 8px 0 0 8px;
 }
 
-ul.nr-controls li:last-child{
+ul.nr-controls li:last-child {
 	border-radius: 0px 8px 8px 0px;
 }
 
-ul.nr-controls li.nr-control-play{
+ul.nr-controls li.nr-control-play {
 	width: 120px;
 }
+
+ul.nr-controls li.nr-control-vol-down {
+	width: 35px;
+}
+
+ul.nr-controls li.nr-control-vol-up {
+	width: 35px;
+}
+
 
 /* Control icons */
 ul.nr-controls li span:before{
@@ -224,7 +233,7 @@ ul.nr-controls li span:before{
 }
 
 li.nr-control-play span:before { content: '>'; } 
-li.nr-control-pause span:before { content: '||'; } 
+li.nr-control-pause span:before { content: '||'; }
 
 ul.nr-controls li:hover{
 	box-shadow: 

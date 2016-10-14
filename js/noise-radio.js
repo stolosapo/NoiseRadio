@@ -144,8 +144,8 @@
 			
 			if (this.options.volumeType === 'controls') {
 
-				this.$cVolUp	= $( '<li class="nr-control-button nr-control-vol-up">Vol Up<span></span></li>' );
-				this.$cVolDown	= $( '<li class="nr-control-button nr-control-vol-down">Vol Down<span></span></li>' );
+				this.$cVolUp	= $( '<li class="nr-control-button nr-control-vol-up">+<span></span></li>' );
+				this.$cVolDown	= $( '<li class="nr-control-button nr-control-vol-down">-<span></span></li>' );
 
 				this.$controls.append( this.$cVolUp )
 							  .append( this.$cVolDown );
