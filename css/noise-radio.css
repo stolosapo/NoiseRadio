@@ -1,0 +1,388 @@
+@import url('radio/normalize.css');
+/* Icon font for player controls */
+@font-face {
+	font-family: 'playericons';
+	src: 	url("radio/fonts/playericons.eot");
+	src: 	url("radio/fonts/playericons.eot?#iefix") format('embedded-opentype'), 
+		url("radio/fonts/playericons.woff") format('woff'), 
+		url("radio/fonts/playericons.ttf") format('truetype'), 
+		url("radio/fonts/playericons.svg#playericons") format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/****** RADIO PLAYER **********/
+
+/* 
+Step 3 – Container Styles
+-----------------------------
+First let’s add some reset styles for all the elements that we will use in the container. 
+*/
+.radio-player,
+.radio-player div,
+.radio-player img,
+.radio-player ul,
+.radio-player textarea,
+.radio-player label {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+}
+
+.radio-player ul {
+	list-style-type: none;
+}
+
+.radio-player .rp-controls {
+	background-image: url('../img/bgr/blueprint-dark.png');
+	background-color: rgba(213, 231, 242, 0.4577);
+ }
+
+
+
+
+/*
+Now let’s style the player container, 
+we will set the width to 400px and height to 120px. 
+We will also add a css3 background gradient and rounded corners.
+*/
+div.radio-player {
+    position: relative;
+	
+	margin-right: auto;
+	margin-left: auto;
+	
+    width: 576px;
+    height: 382px;
+    
+	background: #4c4e5a;
+    background: -webkit-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+    background: -moz-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+    background: -o-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+    background: -ms-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+    background: linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+	
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+
+
+/* 
+Step 4 – Title & Cover 
+----------------------
+Let’s position the title and cover on the player container and then add some typography styles for the title.
+*/
+.radio-player .rp-controls {
+	position: absolute;
+	
+    height: 20%;
+    right: 0;
+}
+
+.radio-player h1 {
+    position: absolute;
+    top: 10px;
+    left: 150px;
+ 
+    font-weight: bold;
+    font-size: 18px;
+    color: #ececec;
+    text-shadow: 1px 1px 1px rgba(0,0,0, .5);
+}
+ 
+ .radio-player .header {
+	position: absolute;
+    top: 37px;
+    left: 0;
+	width: 576px;
+	height: 37px;
+ }
+ 
+.radio-player .cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+	
+	width: 576px;
+	height: 382px;
+}
+
+.radio-player .rp-log-element {
+	position: absolute;
+
+	resize: none;
+	overflow: auto;
+
+	bottom: 35%;
+	width: 100%;
+	right: 0;
+
+	border-radius: 6px;
+
+	background-color: rgba(213, 231, 242, 0.4577);
+}
+
+.radio-player .rp-status-element {
+	font-family: 'Aldrich';
+	font-size: 10px;
+	font-weight: 300;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: #666;
+	text-shadow: 0 1px 1px rgba(255,255,255,0.8);
+
+	position: absolute;
+
+	width: 100%;
+	bottom: 40%;
+	padding: 10px;
+
+	border: 1px solid rgba(0,0,0,0.1);
+	border-bottom-color: rgba(255,255,255,0.6);
+	border-radius: 6px;
+
+	background-color: rgba(213, 231, 242, 0.4577);	
+}
+
+.radio-player .rp-control-image {
+	border-radius: 12px;
+}
+
+
+
+/* Controls list */
+ul.rp-controls {
+	list-style: none;
+	padding: 0;
+	position: absolute;
+	bottom: 9%;
+	background: -moz-linear-gradient(top, rgba(170,170,170,0.35) 0%, rgba(255,255,255,0.44) 50%, rgba(255,255,255,0.53) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(170,170,170,0.35)), color-stop(50%,rgba(255,255,255,0.44)), color-stop(100%,rgba(255,255,255,0.53)));
+	background: -webkit-linear-gradient(top, rgba(170,170,170,0.35) 0%,rgba(255,255,255,0.44) 50%,rgba(255,255,255,0.53) 100%);
+	background: -o-linear-gradient(top, rgba(170,170,170,0.35) 0%,rgba(255,255,255,0.44) 50%,rgba(255,255,255,0.53) 100%);
+	background: -ms-linear-gradient(top, rgba(170,170,170,0.35) 0%,rgba(255,255,255,0.44) 50%,rgba(255,255,255,0.53) 100%);
+	background: linear-gradient(to bottom, rgba(170,170,170,0.35) 0%,rgba(255,255,255,0.44) 50%,rgba(255,255,255,0.53) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#59aaaaaa', endColorstr='#87ffffff',GradientType=0 );
+	border: 1px solid rgba(0,0,0,0.1);
+	border-bottom-color: rgba(255,255,255,0.6);
+	padding: 8px;
+	height: 54px;
+	box-shadow: 
+		inset 0 1px 0px rgba(0,0,0,0.05),
+		0 1px 0 rgba(255,255,255,0.8),
+		0 -1px 0 rgba(255,255,255,0.4),
+		inset 0 2px 19px rgba(0,0,0,0.05),
+		0 2px 1px rgba(0,0,0,0.06);
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	border-radius: 12px;
+}
+
+/* Controls list items */
+ul.rp-controls li {
+	display: block;
+	float: left;
+	width: 80px;
+    height: 50px;
+	line-height: 55px;
+	text-align: left;
+    padding: 10px;
+	margin: 0;
+    cursor: pointer;
+    background: #ddd url(../img/radio/metal.jpg) no-repeat center top;
+	box-shadow: 
+		inset 0 0 0 1px rgba(0,0,0, 0.2), 
+		inset 0 0 1px 2px rgba(255,255,255,0.9),
+		inset 0 -6px 5px rgba(0,0,0,0.1),
+		0 6px 7px rgba(0,0,0,0.3),
+		0 4px 1px rgba(0,0,0,0.5);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+
+ul.rp-controls li:first-child{
+	border-radius: 8px 0 0 8px;
+}
+
+ul.rp-controls li:last-child{
+	border-radius: 0px 8px 8px 0px;
+}
+
+ul.rp-controls li.rp-control-play{
+	width: 120px;
+}
+
+/* Control icons */
+ul.rp-controls li span:before{
+	font-size: 16px;
+	line-height: 50px;
+	text-align: center;
+	float: left;
+	color: #444;
+	font-family: 'playericons';
+	text-shadow:  1px 1px 1px rgba(255,255,255,0.9);
+	font-style: normal;
+	font-weight: normal;
+	text-transform: none;
+	speak: none;
+	display: inline-block;
+	text-decoration: inherit;
+	width: 1em;
+	margin-right: 0.2em;
+	text-align: center;
+}
+
+li.rp-control-play span:before { content: '\70'; } 
+li.rp-control-pause span:before { content: '\50'; } 
+li.rp-control-stop span:before { content: '\25aa'; } 
+
+ul.rp-controls li:hover{
+	box-shadow: 
+		inset 0 0 0 1px rgba(0,0,0, 0.2), 
+		inset 0 0 1px 2px rgba(255,255,255,0.9),
+		inset 0 -10px 15px rgba(0,0,0,0.1),
+		0 6px 7px rgba(0,0,0,0.3),
+		0 4px 1px rgba(0,0,0,0.5);
+}
+
+/* Pressed (active) */
+ul.rp-controls li.rp-control-active{
+	height: 50px;
+	margin-top: 2px;
+	background-image: url(../img/radio/metal_dark.jpg);
+	box-shadow: 
+		inset 0 0 0 1px rgba(0,0,0, 0.18), 
+		inset 0 0 1px 2px rgba(255,255,255,0.5),
+		inset 0 -6px 5px rgba(0,0,0,0.1),
+		0 6px 7px rgba(0,0,0,0.3),
+		0 2px 1px rgba(0,0,0,0.5);
+
+}
+
+/* Activated */
+ul.rp-controls li.rp-control-pressed,
+ul.rp-controls li.rp-control-active.rp-control-pressed{
+	height: 50px;
+	background-image: url(../img/radio/metal_dark.jpg);
+	margin-top: 4px;
+	box-shadow: 
+		inset 0 0 0 1px rgba(0,0,0, 0.2), 
+		inset 0 0 5px 1px rgba(255,255,255,0.5),
+		inset 0 -10px 15px rgba(0,0,0,0.2),
+		0 7px 5px rgba(255,255,255,0.5);
+}
+
+
+
+
+
+
+/*----------------------------
+	knobKnob Styles
+-----------------------------*/
+/* 	
+Background for the volume knob 
+See knobKnob.css for the knob style
+*/
+.rp-volume-wrap {
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	bottom: 8%;
+	left: 2%;
+	margin-left: -318px;
+	background: -moz-linear-gradient(top, rgba(170,170,170,0.35) 0%, rgba(255,255,255,0.44) 50%, rgba(255,255,255,0.53) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(170,170,170,0.35)), color-stop(50%,rgba(255,255,255,0.44)), color-stop(100%,rgba(255,255,255,0.53)));
+	background: -webkit-linear-gradient(top, rgba(170,170,170,0.35) 0%,rgba(255,255,255,0.44) 50%,rgba(255,255,255,0.53) 100%);
+	background: -o-linear-gradient(top, rgba(170,170,170,0.35) 0%,rgba(255,255,255,0.44) 50%,rgba(255,255,255,0.53) 100%);
+	background: -ms-linear-gradient(top, rgba(170,170,170,0.35) 0%,rgba(255,255,255,0.44) 50%,rgba(255,255,255,0.53) 100%);
+	background: linear-gradient(to bottom, rgba(170,170,170,0.35) 0%,rgba(255,255,255,0.44) 50%,rgba(255,255,255,0.53) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#59aaaaaa', endColorstr='#87ffffff',GradientType=0 );
+	border: 1px solid rgba(0,0,0,0.1);
+	border-radius: 50%;
+	padding: 8px;
+	box-shadow: 
+		inset 0 1px 0px rgba(0,0,0,0.05),
+		0 1px 0 rgba(255,255,255,0.6),
+		0 -1px 0 rgba(255,255,255,0.4),
+		inset 0 2px 19px rgba(0,0,0,0.05),
+		0 2px 1px rgba(0,0,0,0.06);
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+}
+
+.rp-volume-wrap:after {
+	content: 'Volume';
+	margin-top: 15px;
+	display: block;
+}
+
+/* Text style for controls */
+ul.rp-controls li,
+.rp-volume-wrap:after {
+	font-family: 'Aldrich';
+	font-size: 10px;
+	font-weight: 300;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: #666;
+	text-shadow: 0 1px 1px rgba(255,255,255,0.8);
+}
+
+.knob {
+	width: 100px;
+	height: 100px;
+	position: relative;
+}
+
+.knob .top {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: url(../img/radio/knob.jpg) no-repeat center center;
+	z-index: 10;
+	cursor: default !important;
+	border-radius: 50%;
+	box-shadow: inset 0 0 3px 2px rgba(255,255,255,0.6);
+}
+
+.knob .base {
+	width: 100%;
+	height: 100%;
+	box-shadow: 0 5px 0 #555, 0px 5px 5px black;
+	position: absolute;
+	z-index: 1;
+	border-radius: 50%;
+}
+
+.knob .top:after {
+	content: '';
+	width: 4px;
+	height: 4px;
+	background-color: #666;
+	position: absolute;
+	top: 50%;
+	margin-top: -2px;
+	left: 4px;
+	border-radius: 50%;
+	cursor: default !important;
+	box-shadow:  
+		0 0 1px #5a5a5a inset, 
+		1px -1px 1px rgba(255,255,255,0.5);
+}
+
+.knob [draggable] {
+  -moz-user-select:  none;
+  -webkit-user-select:  none;
+  user-select:  none;
+}
