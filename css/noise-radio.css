@@ -28,12 +28,6 @@ First let’s add some reset styles for all the elements that we will use in the
 
 
 
-
-/*
-Now let’s style the player container, 
-we will set the width to 400px and height to 120px. 
-We will also add a css3 background gradient and rounded corners.
-*/
 div.noise-radio {
     position: relative;
 	
@@ -57,11 +51,6 @@ div.noise-radio {
 
 
 
-/* 
-Step 4 – Title & Cover 
-----------------------
-Let’s position the title and cover on the player container and then add some typography styles for the title.
-*/
 .noise-radio .nr-controls {
 	position: absolute;
 	
@@ -69,7 +58,7 @@ Let’s position the title and cover on the player container and then add some t
     right: 0;
 }
 
-.noise-radio h1 {
+/*.noise-radio h1 {
     position: absolute;
     top: 10px;
     left: 150px;
@@ -78,15 +67,15 @@ Let’s position the title and cover on the player container and then add some t
     font-size: 18px;
     color: #ececec;
     text-shadow: 1px 1px 1px rgba(0,0,0, .5);
-}
+}*/
  
- .noise-radio .header {
+/* .noise-radio .header {
 	position: absolute;
     top: 37px;
     left: 0;
 	width: 576px;
 	height: 37px;
- }
+ }*/
  
 .noise-radio .cover {
     position: absolute;
@@ -113,27 +102,46 @@ Let’s position the title and cover on the player container and then add some t
 	background-image: url('../img/blueprint-dark.png');
 }
 
-.noise-radio .nr-status-element {
+.noise-radio .nr-status-element,
+.noise-radio .nr-status-header,
+.noise-radio .nr-status-prog-section {
 	position: absolute;
+}
 
-	font-family: 'Aldrich';
-	font-size: 10px;
-	font-weight: 300;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	text-shadow: 0 1px 1px rgba(255,255,255,0.8);
-
+.noise-radio .nr-status-element {
 	width: 99%;
-	height: 12px;
-	bottom: 40%;
-	padding: 10px 0.5% 10px 0.5%;
-
+	height: 50px;
+	top: 20px;
 	border: 1px solid rgba(0,0,0,0.1);
 	border-bottom-color: rgba(255,255,255,0.6);
 	border-radius: 6px;
-
+	padding: 10px 0.5% 10px 0.5%;
 	background-color: rgba(213, 231, 242, 0.4577);
 	background-image: url('../img/blueprint-dark.png');
+}
+
+.noise-radio .nr-status-header {
+	top: 0;
+	width: 100%;
+}
+
+.noise-radio .nr-status-header h1 {
+	font-style: italic;
+	font-weight: 100;
+    font-size: 14px;
+    margin-top: 5px;
+	margin-bottom: 5px;
+    color: #ececec;
+    text-shadow: 1px 1px 1px rgba(0,0,0, .5);
+}
+
+.noise-radio .nr-status-prog-section {
+	font-size: 10px;
+	font-weight: 300;
+	padding: 10px 0.5% 10px 0.5%;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	text-shadow: 0 1px 1px rgba(255,255,255,0.8);
 }
 
 .noise-radio .nr-control-image {
@@ -142,7 +150,7 @@ Let’s position the title and cover on the player container and then add some t
 
 
 
-/* Controls list */
+
 ul.nr-controls {
 	list-style: none;
 	padding: 0;

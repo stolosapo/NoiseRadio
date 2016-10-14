@@ -174,7 +174,17 @@
 
 		_createStatusElement: function() {
 
-			this.$statusElement 	= $( '<label class="nr-status-element"></label>' );
+			var template = '\
+			<article class="nr-status-element">\
+				<header class="nr-status-header">\
+					<h1 class="nr-status-title"></h1>\
+				</header>\
+				<section class="nr-status-prog-section">\
+					<p class="nr-status-proggress"></p>\
+				</section>\
+			</article>';
+
+			this.$statusElement 	= $( template );
 
 			this.$statusElement.appendTo( this.$containerEl );
 			this.$statusElement.show();
@@ -277,33 +287,37 @@
 
 			var _self = this;
 
-			this.audio.addEventListener( 'error', function(e) {
+			this.audio.addEventListener( 'error', function( e ) {
 
 				var log = "error on: " + e.target.src;
 
-				_self._log(log);
+				_self._log( log );
 
 			}, true );
 
-			this.$audioEl.on( 'loadstart', function(e) {
+			this.$audioEl.on( 'loadstart', function( e ) {
 
 				var log = "ready to play: " + this.currentSrc;
 
-				_self._log(log);
+				_self._log( log );
 
 				var currentSource = _self._findSource();
-				_self._showRandomImage(currentSource);
+
+				_self._showTitle( currentSource );
+				_self._showRandomImage( currentSource );
 
 			} );
 
-			this.$audioEl.on( 'loadedmetadata', function(e) {
+			this.$audioEl.on( 'loadedmetadata', function( e ) {
 
 				var log = "loaded metadata: " + this.currentSrc;
 
-				_self._log(log);
+				_self._log( log );
 
 				var currentSource = _self._findSource();
-				_self._showRandomImage(currentSource);
+
+				_self._showTitle( currentSource );
+				_self._showRandomImage( currentSource );
 
 			} );
 
@@ -327,7 +341,7 @@
 
 				text = text + " " + title + " " + " [" + _self._progressTime(parseInt(time)) + "]";
 
-				_self.$statusElement.text(text);
+				_self._changeStatus( text );
 
 			} );
 
@@ -336,7 +350,7 @@
 
 				var text = "Playing";
 
-				_self.$statusElement.text(text);
+				_self._changeStatus( text );
 
 			} );
 
@@ -345,7 +359,7 @@
 
 				var text = "Paused";
 
-				_self.$statusElement.text(text);
+				_self._changeStatus( text );
 
 			} );
 
@@ -354,7 +368,7 @@
 
 				var text = "Play";
 
-				_self.$statusElement.text(text);
+				_self._changeStatus( text );
 
 			} );
 
@@ -363,7 +377,7 @@
 
 				var text = "Seeked";
 
-				_self.$statusElement.text(text);
+				_self._changeStatus( text );
 
 			} );
 
@@ -372,7 +386,7 @@
 
 				var text = "Seeking";
 
-				_self.$statusElement.text(text);
+				_self._changeStatus( text );
 
 			} );
 
@@ -380,7 +394,7 @@
 
 				var text = "Waiting";
 
-				_self.$statusElement.text(text);
+				_self._changeStatus( text );
 
 			} );
 
@@ -389,7 +403,7 @@
 
 				var text = "Stopped";
 
-				_self.$statusElement.text(text);
+				_self._changeStatus( text );
 
 			} );
 
@@ -448,6 +462,8 @@
 			var currentSource = {};
 
 			$.each(this.options.sources, function( i, s ) {
+
+				var match = current + "$";
 
 				if (s.src === current) {
 					
@@ -510,6 +526,18 @@
 			this.$imgElement.attr( 'height', height );
 
 			this.$imgElement.attr( 'src', img );
+
+		},
+
+		_showTitle			: function( source ) {
+
+			var title = source.title;
+
+			if (!title) {
+				return;
+			};
+
+			this._changeTitle( title );
 
 		},
 
@@ -585,6 +613,17 @@
 
 			_self.$logElement.val( message );
 
+		},
+
+		_changeStatus		: function( status ) {
+
+			this.$statusElement.find( 'p.nr-status-proggress' ).text( status );
+
+		},
+
+		_changeTitle 		: function( title ) {
+
+			this.$statusElement.find( 'h1.nr-status-title' ).text( title );
 		},
 
 		_progressDot		: function( progress ) {
