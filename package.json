@@ -3,5 +3,5 @@
   "description": "TheFirstKube :: NoiseRadio app",
   "version": "0.0.0",
   "dependencies": {},
-  "private": true,
+  "private": true
 }
