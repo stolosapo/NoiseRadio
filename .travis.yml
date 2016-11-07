@@ -3,5 +3,11 @@ language: node_js
 node_js:
   - "6"
 before_script:
+  - npm install -g bower
   - npm install -g gulp
-script: gulp
+  - npm install phantomjs
+  - npm install -g karma
+  - bower install
+  - gulp build
+  - gulp style
+script: npm test
