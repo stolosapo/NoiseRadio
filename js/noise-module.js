@@ -232,13 +232,19 @@
 
 		_connectNodeToDestination	: function ( node ) {
 
-			node.connect ( this.audioContext.destination );
+			this._connectNodes ( node, this.audioContext.destination );
 
 		},
 
 		_connectNodes				: function ( srcNode, destNode ) {
 
 			srcNode.connect ( destNode );
+
+		},
+
+		_disconnectNodes			: function ( srcNode, destNode ) {
+
+			srcNode.disconnect ( destNode );
 
 		},
 
