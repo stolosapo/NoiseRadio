@@ -15,6 +15,7 @@
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 		<script src="js/noise-radio.js"></script>
+		<script src="js/noise-module.js"></script>
 
 		<script type="text/javascript">	
 			
@@ -69,6 +70,10 @@
 					],
 
 				} );
+
+				/* Create a new Singleton Noise Module */
+				var audio = $( 'audio' );
+				$( 'body' ).noiseModule( {}, audio );
 					
 			});
 
