@@ -13,6 +13,33 @@
 
 	$.NoiseModule.defaults		= {
 
+		/* Node Type :
+			noise 				{ white, pink, brown }
+			oscillator 			{ sine, square, sawtooth, triangle }
+			biquadfilter 		{ lowpass, highpass, bandpass, lowshelf, highshelf, peaking, notch, allpass }
+			delay
+			dynamicscompressor
+			gain
+			stereopannernode
+			waveshapernode
+			periodicwave
+			analyser
+		*/
+		modules 				: [
+
+			{ name: "WhiteNoise", nodeType: "noise", type: "white" },
+			{ name: "SineWave", nodeType: "oscillator", type: "sine" },
+			{ name: "Gain", nodeType: "gain", type: "" }
+
+		],
+
+		connections				: [
+
+			{ srcNode: "WhiteNoise", destNode: "Gain" },
+			// { srcNode: "Gain", destNode: "output" }
+
+		],
+
 		oscillatorFrequency		: 900,
 		oscillatorDetune		: 100,
 
@@ -51,19 +78,22 @@
 
 		_init						: function ( options ) {
 
-			var _self = this;
-
 			// the options
 			this.options 		= $.extend( true, {}, $.NoiseModule.defaults, options );
 
-			// create audio context
-			_self._createAudioContext();
+			// initialize counters
+			this.moduleCounter	= 0;
+			this.moduleMap		= [];
 
-			_self._test();
+			// create audio context
+			this._createAudioContext();
+
+			// create modules
+			this._createModules();
 
 		},
 
-		_test						: function () {
+		_test						: function ( ) {
 
 			var whiteNoise 		= this._createWhiteNoise();
 			var pinkNoise 		= this._createPinkNoise();
@@ -98,7 +128,7 @@
 
 		},
 
-		_createAudioContext			: function () {
+		_createAudioContext			: function ( ) {
 
 			var audioContext; 
 
@@ -113,6 +143,232 @@
 			}
 
 			this.audioContext = audioContext;
+
+		},
+
+		_createModules				: function ( ) {
+
+			// create container for all modules
+			this.$containerEl = $( '<div id="noise-module-container" class="noise-module-container"></div>' );
+
+			this.$el.prepend( this.$containerEl );
+
+			var _self = this;
+
+			
+			// create all modules
+			$.each( this.options.modules, function( index, module ) {
+
+				_self._createModule( module );
+
+			} );
+
+
+			// create module connections
+			$.each( this.options.connections, function( index, connection ) {
+
+				_self._createConnection( connection );
+
+			} );
+
+		},
+
+		_createModule				: function ( module ) {
+
+			var audioNode 		= this._createAudioNode( module );
+
+			// create div for module
+			this._createModuleDiv( module, audioNode );
+
+			// register audio node
+			var moduleItem = { name: module.name, node: audioNode };
+			this.moduleMap.push( moduleItem );
+
+			// increase module counter
+			this.moduleCounter++;
+
+		},
+
+		_createModuleDiv			: function ( module, audioNode ) {
+
+			var name 			= module.name;
+			var moduleNumber 	= this._getNextModuleNumber ( );
+			var moduleId 		= "module" + moduleNumber;
+			var nodeType 		= module.nodeType;
+			
+			var template 		= '\
+			<div id="' + moduleId + '" class="noise-module ' + nodeType + '">\
+				<div class="noise-module-content">\
+					<h6 class="noise-module-content-title">' + name + '</h6>\
+				</div>\
+			</div>';
+
+			var $divEl 			= $( template );
+
+			// append content
+			this._appendContentToModule( $divEl, nodeType, audioNode );
+
+			$divEl.appendTo( this.$containerEl );
+			$divEl.show();
+
+		},
+
+		_appendContentToModule		: function ( $moduleEl, nodeType, audioNode ) {
+
+			if ( nodeType === "noise" ) {
+				return this._createNoiseDiv( $moduleEl, audioNode );
+			};
+
+			if ( nodeType === "oscillator" ) {
+				return this._createOscillatorDiv( $moduleEl, audioNode );
+			};
+
+			if ( nodeType === "biquadfilter" ) {
+				return this._createBiquadFilterDiv( $moduleEl, audioNode );
+			};
+
+			if ( nodeType === "delay" ) {
+				return this._createDelayDiv( $moduleEl, audioNode );
+			};
+
+			if ( nodeType === "dynamicscompressor" ) {
+				return this._createDynamicsCompressorDiv( $moduleEl, audioNode );
+			};
+
+			if ( nodeType === "gain" ) {
+				return this._createGainDiv( $moduleEl, audioNode );
+			};
+
+			if ( nodeType === "stereopannernode" ) {
+				return this._createStreoPannerDiv( $moduleEl, audioNode );
+			};
+
+			if ( nodeType === "waveshapernode" ) {
+				return this._createWaveShaperDiv( $moduleEl, audioNode );
+			};
+
+			// if ( nodeType === "periodicwave" ) {
+
+			// };
+
+			if ( nodeType === "analyser" ) {
+				return this._createAnalyserDiv( $moduleEl, audioNode );
+			};
+
+		},
+
+		_createAudioNode			: function ( module ) {
+
+			var nodeType = module.nodeType;
+
+			if ( nodeType === "noise" ) {
+				return this._createNoise( module.type );
+			};
+
+			if ( nodeType === "oscillator" ) {
+				return this._createOscillator( module.type );
+			};
+
+			if ( nodeType === "biquadfilter" ) {
+				return this._createBiquadFilter( module.type );
+			};
+
+			if ( nodeType === "delay" ) {
+				return this._createDelay();
+			};
+
+			if ( nodeType === "dynamicscompressor" ) {
+				return this._createDynamicsCompressor();
+			};
+
+			if ( nodeType === "gain" ) {
+				return this._createGain();
+			};
+
+			if ( nodeType === "stereopannernode" ) {
+				return this._createStreoPanner();
+			};
+
+			if ( nodeType === "waveshapernode" ) {
+				return this._createWaveShaper();
+			};
+
+			// if ( nodeType === "periodicwave" ) {
+
+			// };
+
+			if ( nodeType === "analyser" ) {
+				return this._createAnalyser();
+			};
+
+		},
+
+		_createConnection			: function ( connection ) {
+
+			var srcNode = this._findAudioNode( connection.srcNode );
+			var destNode;
+
+			if ( connection.destNode === "output" ) {
+				
+				this._connectNodeToDestination( srcNode );
+
+			}
+			else {
+				
+				destNode = this._findAudioNode( connection.destNode );
+				this._connectNodes( srcNode, destNode );
+
+			};
+
+		},
+
+		_findAudioNode				: function ( moduleName ) {
+
+			var node;
+
+			$.each( this.moduleMap, function( index, map ) {
+
+				if ( map.name === moduleName ) {
+					
+					node = map.node;
+					return;
+
+				};
+
+			} );
+
+			return node;
+
+		},
+
+		_getNextModuleNumber		: function ( ) {
+
+			return this.moduleCounter + 1;
+
+		},
+
+		_createNoise 				: function ( type ) {
+
+			if ( type === "white" ) {
+				return this._createWhiteNoise();
+			};
+
+			if ( type === "pink" ) {
+				return this._createPinkNoise();
+			};
+
+			if ( type === "brown" ) {
+				return this._createBrownNoise();
+			};
+
+		},
+
+		_createNoiseDiv 			: function ( $moduleEl, audioNode ) {
+
+			var template 	= '<img src=""></img>';
+
+			var $divEl		= $( template );
+			$divEl.appendTo( $moduleEl );
 
 		},
 
@@ -144,11 +400,11 @@
 			var b0, b1, b2, b3, b4, b5, b6;
 			b0 = b1 = b2 = b3 = b4 = b5 = b6 = 0.0;
 
-			var node = this.audioContext.createScriptProcessor(bufferSize, 1, 1);
+			var node = this.audioContext.createScriptProcessor ( bufferSize, 1, 1 );
 
 			node.onaudioprocess = function( e ) {
 
-				var output = e.outputBuffer.getChannelData(0);
+				var output = e.outputBuffer.getChannelData ( 0 );
 
 				for (var i = 0; i < bufferSize; i++) { 				
 
@@ -214,6 +470,10 @@
 
 		},
 
+		_createOscillatorDiv		: function ( $moduleEl, audioNode ) {
+
+		},
+
 		_createSineWave				: function ( ) {
 
 			return this._createOscillator ( 'sine' );
@@ -273,6 +533,10 @@
 
 		},
 
+		_createGainDiv				: function ( $moduleEl, audioNode ) {
+
+		},
+
 		_createBiquadFilter			: function ( type ) {
 
 			var node = this.audioContext.createBiquadFilter();
@@ -287,6 +551,10 @@
 
 		},
 
+		_createBiquadFilterDiv		: function ( $moduleEl, audioNode ) {
+
+		},
+
 		_createDelay				: function ( ) {
 
 			var node = this.audioContext.createDelay ();
@@ -294,6 +562,10 @@
 			node.delayTime.value = this.options.delayTime;
 
 			return node;
+
+		},
+
+		_createDelayDiv				: function ( $moduleEl, audioNode ) {
 
 		},
 
@@ -312,6 +584,10 @@
 
 		},
 
+		_createDynamicsCompressorDiv: function ( $moduleEl, audioNode ) {
+
+		},
+
 		_createStreoPanner			: function ( ) {
 
 			var node = this.audioContext.createStereoPanner ( );
@@ -319,6 +595,10 @@
 			node.pan.value = this.options.stereoPannerPan;
 
 			return node;
+
+		},
+
+		_createStreoPannerDiv		: function ( $moduleEl, audioNode ) {
 
 		},
 
@@ -354,6 +634,10 @@
 
 		},
 
+		_createWaveShaperDiv		: function ( $moduleEl, audioNode ) {
+
+		},
+
 		_createAnalyser				: function ( ) {
 
 			var analyser = this.audioContext.createAnalyser ( );
@@ -366,6 +650,10 @@
 			analyser.getByteTimeDomainData ( dataArray );
 
 			return analyser;
+
+		},
+
+		_createAnalyserDiv			: function ( $moduleEl, audioNode ) {
 
 		},
 
