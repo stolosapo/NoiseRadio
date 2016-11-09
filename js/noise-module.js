@@ -281,23 +281,30 @@
 				instance[ options ].apply( instance, args );
 			
 			});
+
+			return this;
 		
 		} 
 		else {
 		
+			var instance;
+
 			this.each(function() {
 			
-				var instance = $.data( this, 'noiseModule' );
+				instance = $.data( this, 'noiseModule' );
 				
 				if ( !instance ) {
-					$.data( this, 'noiseModule', new $.NoiseModule( options, this, radio ) );
+
+					instance = new $.NoiseModule( options, this, radio );
+
+					$.data( this, 'noiseModule', instance );
 				}
 
 			});
+
+			return instance;
 		
 		}
-		
-		return this;
 
 	};
 
