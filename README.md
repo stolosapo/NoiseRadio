@@ -164,7 +164,7 @@ It displayed like a knob
 
 ###### controls
 
-It displays two extra buttons (+ | -) that controls the volume
+It displays two extra buttons (`+ | -`) that controls the volume
 
 #### initialVolume
 

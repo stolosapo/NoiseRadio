@@ -463,9 +463,7 @@
 
 			$.each(this.options.sources, function( i, s ) {
 
-				var match = current + "$";
-
-				if (s.src === current) {
+				if (current.endsWith(s.src)) {
 					
 					currentSource = s;
 
