@@ -21,6 +21,7 @@
 
 		showImage		: true,
 		showLogs		: false,
+		showNavButons	: false,
 
 		preload			: "none",
 		loop			: true,
@@ -63,7 +64,16 @@
 			this._createPlayerDiv();
 
 			// create a new HTML5 audio element
-			this.$audioEl	= $( '<audio id="noise-element" preload="' + this.options.preload + '" loop="' + this.options.loop + '"><p>' + this.options.fallbackMessage + '</p></audio>' );
+			var template	='\
+			<audio id="noise-element" preload="' + this.options.preload + '">\
+				<p>' + this.options.fallbackMessage + '</p>\
+			</audio>';
+
+			this.$audioEl	= $( template );
+
+			if (this.options.loop) {
+				this.$audioEl.attr('loop', true);
+			};
 
 			this.$containerEl.prepend( this.$audioEl );
 
@@ -105,12 +115,24 @@
 
 			this.$cPlay		= $( '<li class="nr-control-button nr-control-play">Play<span></span></li>' );
 			this.$cPause	= $( '<li class="nr-control-button nr-control-pause">Pause<span></span></li>' );
+
+			this.$cPrev		= $( '<li class="nr-control-button nr-control-prev">Prev<span></span></li>' );
+			this.$cNext		= $( '<li class="nr-control-button nr-control-next">Next<span></span></li>' );
+
 			this.$cStop		= $( '<li class="nr-control-button nr-control-stop">Stop<span></span></li>' );
 			this.$cReset	= $( '<li class="nr-control-button nr-control-reset">Reset<span></span></li>' );
 
 			this.$controls.append( this.$cPlay )
-						  .append( this.$cPause )
-						  .append( this.$cStop )
+						  .append( this.$cPause );
+
+
+			if (this.options.showNavButons) {
+				this.$controls.append( this.$cPrev )
+							  .append( this.$cNext );
+			};
+
+
+			this.$controls.append( this.$cStop )
 						  .append( this.$cReset )
 						  .appendTo( this.$containerEl );
 
@@ -248,6 +270,22 @@
 
 			} );
 
+			if (this.options.showNavButons) {
+				this.$cPrev.on( 'mousedown', function(e) {
+
+					_self._setButtonActive( $( this ) );
+					_self._prev();
+
+				} );
+
+				this.$cNext.on( 'mousedown', function(e) {
+
+					_self._setButtonActive( $( this ) );
+					_self._next();
+
+				} );
+			};
+
 			this.$cStop.on( 'mousedown', function(e) {
 
 				_self._setButtonActive( $( this ) );
@@ -320,6 +358,28 @@
 				_self._showRandomImage( currentSource );
 
 			} );
+
+			if (!this.options.loop) {
+				this.$audioEl.on( 'ended', function( e ) {
+
+					var text = "Ended";
+
+					_self._changeStatus( text );
+
+					var currentSource	= _self._findSource();
+					var nextSource		= _self._findNextSource(currentSource, true);
+
+					if (nextSource != undefined) {
+						this.src			= nextSource.src;
+						this.play();
+					}
+					else {
+						_self._stop();
+					};
+
+
+				} );
+			};
 
 		},
 
@@ -475,6 +535,42 @@
 
 		},
 
+		_findNextSource		: function(currentSrc, next) {
+
+			var curSrc 		= currentSrc.src;
+			var prevSrc;
+			var nextSrc;
+
+			var found 		= false;
+			var foundCnt	= 0;
+
+			$.each(this.options.sources, function( index, src ) {
+
+				found 	= curSrc.endsWith(src.src);
+
+				if (found && foundCnt === 0) {
+					
+					foundCnt++;
+
+				}
+				else if (foundCnt === 1) {
+
+					nextSrc = src;
+					return false;
+
+				}
+				else if (!found) {
+
+					prevSrc = src;
+
+				};
+
+			} );
+
+			return next ? nextSrc : prevSrc;
+
+		},
+
 		_getRandomImage		: function( source ) {
 
 			if (!source.images || !this.options.showImage) {
@@ -552,6 +648,40 @@
 			this._updateButtons( 'pause' );
 
 			this.audio.pause();
+
+		},
+
+		_prev 				: function() {
+
+			this._updateButtons( 'prev' );
+
+			var currentSource	= this._findSource();
+			var prevSource		= this._findNextSource(currentSource, false);
+
+			if (prevSource != undefined) {
+				this.audio.src	= prevSource.src;
+				this._play();
+			}
+			else {
+				this._stop();
+			};
+
+		},
+
+		_next 				: function() {
+
+			this._updateButtons( 'next' );
+
+			var currentSource	= this._findSource();
+			var nextSource		= this._findNextSource(currentSource, true);
+
+			if (nextSource != undefined) {
+				this.audio.src	= nextSource.src;
+				this._play();
+			}
+			else {
+				this._stop();
+			};
 
 		},
 
