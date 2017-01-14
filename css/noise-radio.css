@@ -219,6 +219,14 @@ ul.nr-controls li.nr-control-vol-up {
 	width: 35px;
 }
 
+ul.nr-controls li.nr-control-prev {
+	width: 35px;
+}
+
+ul.nr-controls li.nr-control-next {
+	width: 35px;
+}
+
 
 /* Control icons */
 ul.nr-controls li span:before{
@@ -242,6 +250,9 @@ ul.nr-controls li span:before{
 
 li.nr-control-play span:before { content: '>'; } 
 li.nr-control-pause span:before { content: '||'; }
+
+/*li.nr-control-prev span:before { content: '|<'; } 
+li.nr-control-next span:before { content: '>|'; }*/
 
 ul.nr-controls li:hover{
 	box-shadow: 
