@@ -357,8 +357,8 @@
 				_self._showTitle( currentSource );
 				_self._showRandomImage( currentSource );
 
-				_self._removeTimerInfo( currentSource );
-				_self._registerTimerInfo( currentSource );
+				// _self._removeTimerInfo( currentSource );
+				// _self._registerTimerInfo( currentSource );
 
 			} );
 
