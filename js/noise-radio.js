@@ -14,8 +14,8 @@
 
 		sources			: [ 
 
-			{ src: "noise/PinkNoise.mp3", type: "audio/mpeg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
-			{ src: "noise/PinkNoise.ogg", type: "audio/ogg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
+			{ src: "noise/PinkNoise.mp3", timerId: undefined, iceCastServer: "", iceCastSourceInfo: undefined, type: "audio/mpeg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
+			{ src: "noise/PinkNoise.ogg", timerId: undefined, iceCastServer: "", iceCastSourceInfo: undefined, type: "audio/ogg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
 
 		],
 
@@ -356,6 +356,9 @@
 
 				_self._showTitle( currentSource );
 				_self._showRandomImage( currentSource );
+
+				_self._removeTimerInfo( currentSource );
+				_self._registerTimerInfo( currentSource );
 
 			} );
 
@@ -874,6 +877,96 @@
 			(seconds  < 10 ? "0" + seconds : seconds);
 
 			return text;
+
+		},
+
+		_registerTimerInfo	: function( source ) {
+
+			var _self = this;
+
+			var isOk = _self._readIceCastInfo( source );
+
+			if (!isOk) {
+				return;
+			};
+
+			var id = setTimeout( function( ) {
+				_self._registerTimerInfo( source );
+			}, 5000 );
+
+			source.timerId = id;
+		},
+
+		_removeTimerInfo	: function( source ) {
+
+			if (source.timerId == undefined) {
+				return;
+			};
+
+			clearTimeout( source.timerId );
+		},
+
+		_readIceCastInfo	: function( source ) {
+
+			var _self = this;
+			var server = source.iceCastServer;
+
+			if (!server) {
+				return false;
+			};
+
+			var url = server + "/status-json.xsl";
+
+			url = "icecast-info-example.json";
+
+			this._requestGET( url, function( response ) {
+
+				var iceStats 	= JSON.parse( response );
+
+				var iceSource 	= $.grep( iceStats.icestats.source, function( v ) {
+
+					return v.listenurl === source.src;
+
+				} );
+
+				if (iceSource.length) {
+
+					source.iceCastSourceInfo = iceSource[ 0 ];
+
+					_self._applyIceCastInfo( source );
+				};
+
+			} );
+
+			return true;
+		},
+
+		_applyIceCastInfo	: function( source ) {
+
+			var info = source.iceCastSourceInfo;
+
+			console.log( "Title", info.title );
+			console.log( "Listeners", info.listeners );
+
+		},
+
+		_requestGET			: function( url, callback ) {
+
+			var request = new XMLHttpRequest( );
+
+			request.onreadystatechange = function( ) {
+
+				if (request.readyState === 4 &&
+					request.status === 200) {
+					callback( request.responseText );
+				}
+			};
+
+			request.open( "GET", url, true );
+			request.setRequestHeader( 'Access-Control-Allow-Origin', '*' );
+			request.setRequestHeader( 'Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' );
+			request.setRequestHeader( 'Origin', '*' );
+			request.send( null );
 
 		},
 
