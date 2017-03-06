@@ -360,6 +360,8 @@
 				// _self._removeTimerInfo( currentSource );
 				// _self._registerTimerInfo( currentSource );
 
+				_self._readIceCastInfo( currentSource );
+
 			} );
 
 			if (!this.options.loop) {
@@ -917,9 +919,15 @@
 
 			var url = server + "/status-json.xsl";
 
-			url = "icecast-info-example.json";
+			// url = "icecast-info-example.json";
 
-			this._requestGET( url, function( response ) {
+			this._requestJsonP( url, function( response ) {
+
+				console.log( "test", response );
+
+				if (response == undefined) {
+					return;
+				}
 
 				var iceStats 	= JSON.parse( response );
 
@@ -947,6 +955,25 @@
 
 			console.log( "Title", info.title );
 			console.log( "Listeners", info.listeners );
+
+		},
+
+		_requestJsonP 			: function( url, callback ) {
+
+
+			$.ajax({
+				headers: {          
+					Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+				},
+				type: "GET",
+				url: url,
+				dataType: "jsonp",
+				crossDomain: true,
+				success: callback,
+				error: function( jqXHR, textStatus, errorThrown) {
+	            	console.log( textStatus );
+	            }
+	        });
 
 		},
 
