@@ -14,8 +14,8 @@
 
 		sources			: [ 
 
-			{ src: "noise/PinkNoise.mp3", timerId: undefined, iceCastServer: "", iceCastSourceInfo: undefined, type: "audio/mpeg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
-			{ src: "noise/PinkNoise.ogg", timerId: undefined, iceCastServer: "", iceCastSourceInfo: undefined, type: "audio/ogg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
+			{ src: "noise/PinkNoise.mp3", timerId: undefined, iceCastStats: "", type: "audio/mpeg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
+			{ src: "noise/PinkNoise.ogg", timerId: undefined, iceCastStats: "", type: "audio/ogg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
 
 		],
 
@@ -911,89 +911,68 @@
 		_readIceCastInfo	: function( source ) {
 
 			var _self = this;
-			var server = source.iceCastServer;
+			var url = source.iceCastStats;
 
-			if (!server) {
+			if (!url) {
 				return false;
 			};
 
-			var url = server + "/status-json.xsl";
+			this._requestGET( url, function( response ) {
 
-			// url = "icecast-info-example.json";
-
-			this._requestJsonP( url, function( response ) {
-
-				console.log( "test", response );
 
 				if (response == undefined) {
 					return;
 				}
 
-				var iceStats 	= JSON.parse( response );
+				var index 		= response.indexOf( source.src );
+				var untilMe		= response.substring( 0, index );
+				var prevIndex	= untilMe.lastIndexOf( '{' );
+				var nextIndex 	= response.indexOf( '}', index );
 
-				var iceSource 	= $.grep( iceStats.icestats.source, function( v ) {
+				var me 			= response.substring( prevIndex, nextIndex + 1 );
 
-					return v.listenurl === source.src;
+ 				var iceSource	= JSON.parse( me );
 
-				} );
+ 				_self._applyIceCastInfo( source, iceSource );
+ 				
 
-				if (iceSource.length) {
+				// var iceStats 	= JSON.parse( response );
 
-					source.iceCastSourceInfo = iceSource[ 0 ];
+				// var iceSource 	= $.grep( iceStats.icestats.source, function( v ) {
 
-					_self._applyIceCastInfo( source );
-				};
+				// 	return v.listenurl === source.src;
+
+				// } );
+
+				// if (iceSource.length) {
+
+				// 	_self._applyIceCastInfo( source, iceSource[ 0 ] );
+				// };
 
 			} );
 
 			return true;
 		},
 
-		_applyIceCastInfo	: function( source ) {
+		_applyIceCastInfo	: function( source, sourceInfo ) {
 
-			var info = source.iceCastSourceInfo;
-
-			console.log( "Title", info.title );
-			console.log( "Listeners", info.listeners );
+			console.log( "Title", sourceInfo.title );
+			console.log( "Listeners", sourceInfo.listeners );
 
 		},
 
-		_requestJsonP 			: function( url, callback ) {
-
+		_requestGET 		: function( url, callback ) {
 
 			$.ajax({
-				headers: {          
-					Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
-				},
 				type: "GET",
 				url: url,
-				dataType: "jsonp",
+				dataType: "text",
 				crossDomain: true,
 				success: callback,
-				error: function( jqXHR, textStatus, errorThrown) {
-	            	console.log( textStatus );
+				error: function( jqXHR, textStatus, errorThrown ) {
+	            	console.log( jqXHR, textStatus, errorThrown );
 	            }
 	        });
-
-		},
-
-		_requestGET			: function( url, callback ) {
-
-			var request = new XMLHttpRequest( );
-
-			request.onreadystatechange = function( ) {
-
-				if (request.readyState === 4 &&
-					request.status === 200) {
-					callback( request.responseText );
-				}
-			};
-
-			request.open( "GET", url, true );
-			request.setRequestHeader( 'Access-Control-Allow-Origin', '*' );
-			request.setRequestHeader( 'Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' );
-			request.setRequestHeader( 'Origin', '*' );
-			request.send( null );
 
 		},
 
@@ -1179,6 +1158,5 @@
 		} );
 
 	};
-
 
 } )( window, jQuery );
