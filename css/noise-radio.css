@@ -1,16 +1,13 @@
 /****** NOISE RADIO PLAYER **********/
 
-/* 
+
+/*
 Step 3 – Container Styles
 -----------------------------
-First let’s add some reset styles for all the elements that we will use in the container. 
+First let’s add some reset styles for all the elements that we will use in the container.
 */
-.noise-radio,
-.noise-radio div,
-.noise-radio img,
-.noise-radio ul,
-.noise-radio textarea,
-.noise-radio label {
+
+.noise-radio, .noise-radio div, .noise-radio img, .noise-radio ul, .noise-radio textarea, .noise-radio label {
     margin: 0;
     padding: 0;
     border: none;
@@ -18,57 +15,50 @@ First let’s add some reset styles for all the elements that we will use in the
 }
 
 .noise-radio ul {
-	list-style-type: none;
+    list-style-type: none;
 }
 
 .noise-radio .nr-controls {
-	background-image: url('../img/blueprint-dark.png');
-	background-color: rgba(213, 231, 242, 0.4577);
- }
-
-
+    background-image: url('../img/blueprint-dark.png');
+    background-color: rgba(213, 231, 242, 0.4577);
+}
 
 div.noise-radio {
     position: relative;
-	
-	margin-right: auto;
-	margin-left: auto;
-	
+    margin-right: auto;
+    margin-left: auto;
     width: 576px;
     height: 382px;
-    
-	background: #4c4e5a;
+    background: #4c4e5a;
     background: -webkit-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
     background: -moz-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
     background: -o-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
     background: -ms-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
     background: linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
-	
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
 }
 
-
-
 .noise-radio .nr-controls {
-	position: absolute;
-	
+    position: absolute;
     height: 20%;
     right: 0;
 }
+
 
 /*.noise-radio h1 {
     position: absolute;
     top: 10px;
     left: 150px;
- 
+
     font-weight: bold;
     font-size: 18px;
     color: #ececec;
     text-shadow: 1px 1px 1px rgba(0,0,0, .5);
 }*/
- 
+
+
 /* .noise-radio .header {
 	position: absolute;
     top: 37px;
@@ -76,313 +66,281 @@ div.noise-radio {
 	width: 576px;
 	height: 37px;
  }*/
- 
+
 .noise-radio .cover {
     position: absolute;
     top: 0;
     left: 0;
-	
-	width: 576px;
-	height: 382px;
+    width: 576px;
+    height: 382px;
 }
 
 .noise-radio .nr-log-element {
-	position: absolute;
-
-	resize: none;
-	overflow: auto;
-
-	bottom: 49%;
-	width: 100%;
-	right: 0;
-
-	border-radius: 6px;
-
-	background-color: rgba(213, 231, 242, 0.4577);
-	background-image: url('../img/blueprint-dark.png');
+    position: absolute;
+    resize: none;
+    overflow: auto;
+    bottom: 49%;
+    width: 100%;
+    right: 0;
+    border-radius: 6px;
+    background-color: rgba(213, 231, 242, 0.4577);
+    background-image: url('../img/blueprint-dark.png');
 }
 
-.noise-radio .nr-status-element,
-.noise-radio .nr-status-header,
-.noise-radio .nr-status-prog-section {
-	position: absolute;
+.noise-radio .nr-status-element, .noise-radio .nr-status-header, .noise-radio .nr-status-prog-section {
+    position: absolute;
 }
 
 .noise-radio .nr-status-element {
-	width: 99%;
-	height: 50px;
-	top: 20px;
-	border: 1px solid rgba(0,0,0,0.1);
-	border-bottom-color: rgba(255,255,255,0.6);
-	border-radius: 6px;
-	padding: 10px 0.5% 10px 0.5%;
-	background-color: rgba(213, 231, 242, 0.4577);
-	background-image: url('../img/blueprint-dark.png');
+    width: 99%;
+    height: 50px;
+    top: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom-color: rgba(255, 255, 255, 0.6);
+    border-radius: 6px;
+    padding: 10px 0.5% 10px 0.5%;
+    background-color: rgba(213, 231, 242, 0.4577);
+    background-image: url('../img/blueprint-dark.png');
 }
 
 .noise-radio .nr-status-header {
-	top: 0;
-	width: 100%;
+    top: 0;
+    width: 100%;
 }
 
 .noise-radio .nr-status-header h1 {
-	font-style: italic;
-	font-weight: 100;
+    font-style: italic;
+    font-weight: 100;
     font-size: 14px;
     margin-top: 5px;
-	margin-bottom: 5px;
+    margin-bottom: 5px;
     color: #ececec;
-    text-shadow: 1px 1px 1px rgba(0,0,0, .5);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .5);
 }
 
 .noise-radio .nr-status-prog-section {
-	font-size: 10px;
-	font-weight: 300;
-	padding: 10px 0.5% 10px 0.5%;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	text-shadow: 0 1px 1px rgba(255,255,255,0.8);
+    font-size: 10px;
+    font-weight: 300;
+    padding: 10px 0.5% 10px 0.5%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
 }
 
 .noise-radio .nr-control-image {
-	border-radius: 12px;
+    border-radius: 12px;
 }
-
-
-
 
 ul.nr-controls {
-	list-style: none;
-	padding: 0;
-	position: absolute;
-	bottom: 9%;
-	border: 1px solid rgba(0,0,0,0.1);
-	border-bottom-color: rgba(255,255,255,0.6);
-	padding: 8px;
-	height: 54px;
-	box-shadow: 
-		inset 0 1px 0px rgba(0,0,0,0.05),
-		0 1px 0 rgba(255,255,255,0.8),
-		0 -1px 0 rgba(255,255,255,0.4),
-		inset 0 2px 19px rgba(0,0,0,0.05),
-		0 2px 1px rgba(0,0,0,0.06);
-	-webkit-box-sizing: content-box;
-	-moz-box-sizing: content-box;
-	box-sizing: content-box;
-	border-radius: 12px;
+    list-style: none;
+    padding: 0;
+    position: absolute;
+    bottom: 9%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom-color: rgba(255, 255, 255, 0.6);
+    padding: 8px;
+    height: 54px;
+    box-shadow: inset 0 1px 0px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.8), 0 -1px 0 rgba(255, 255, 255, 0.4), inset 0 2px 19px rgba(0, 0, 0, 0.05), 0 2px 1px rgba(0, 0, 0, 0.06);
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    border-radius: 12px;
 }
+
 
 /* Controls list items */
+
 ul.nr-controls li {
-	display: block;
-	float: left;
-	width: 80px;
+    display: block;
+    float: left;
+    width: 80px;
     height: 35px;
-	line-height: 55px;
-	text-align: left;
+    line-height: 55px;
+    text-align: left;
     padding: 10px;
-	margin: 0;
+    margin: 0;
     cursor: pointer;
     background: #ddd no-repeat center top;
-	box-shadow: 
-		inset 0 0 0 1px rgba(0,0,0, 0.2), 
-		inset 0 0 1px 2px rgba(255,255,255,0.9),
-		inset 0 -6px 5px rgba(0,0,0,0.1),
-		0 6px 7px rgba(0,0,0,0.3),
-		0 4px 1px rgba(0,0,0,0.5);
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 0 1px 2px rgba(255, 255, 255, 0.9), inset 0 -6px 5px rgba(0, 0, 0, 0.1), 0 6px 7px rgba(0, 0, 0, 0.3), 0 4px 1px rgba(0, 0, 0, 0.5);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-
 ul.nr-controls li:first-child {
-	border-radius: 8px 0 0 8px;
+    border-radius: 8px 0 0 8px;
 }
 
 ul.nr-controls li:last-child {
-	border-radius: 0px 8px 8px 0px;
+    border-radius: 0px 8px 8px 0px;
 }
 
 ul.nr-controls li.nr-control-play {
-	width: 120px;
+    width: 120px;
 }
 
 ul.nr-controls li.nr-control-vol-down {
-	width: 35px;
+    width: 35px;
 }
 
 ul.nr-controls li.nr-control-vol-up {
-	width: 35px;
+    width: 35px;
 }
 
 ul.nr-controls li.nr-control-prev {
-	width: 35px;
+    width: 35px;
 }
 
 ul.nr-controls li.nr-control-next {
-	width: 35px;
+    width: 35px;
 }
 
 
 /* Control icons */
-ul.nr-controls li span:before{
-	font-size: 16px;
-	line-height: 50px;
-	text-align: center;
-	float: left;
-	color: #444;
-	font-family: 'playericons';
-	text-shadow:  1px 1px 1px rgba(255,255,255,0.9);
-	font-style: normal;
-	font-weight: normal;
-	text-transform: none;
-	speak: none;
-	display: inline-block;
-	text-decoration: inherit;
-	width: 1em;
-	margin-right: 0.2em;
-	text-align: center;
+
+ul.nr-controls li span:before {
+    font-size: 16px;
+    line-height: 50px;
+    text-align: center;
+    float: left;
+    color: #444;
+    font-family: 'playericons';
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.9);
+    font-style: normal;
+    font-weight: normal;
+    text-transform: none;
+    speak: none;
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: 0.2em;
+    text-align: center;
 }
 
-li.nr-control-play span:before { content: '>'; } 
-li.nr-control-pause span:before { content: '||'; }
+li.nr-control-play span:before {
+    content: '>';
+}
 
-/*li.nr-control-prev span:before { content: '|<'; } 
+li.nr-control-pause span:before {
+    content: '||';
+}
+
+
+/*li.nr-control-prev span:before { content: '|<'; }
 li.nr-control-next span:before { content: '>|'; }*/
 
-ul.nr-controls li:hover{
-	box-shadow: 
-		inset 0 0 0 1px rgba(0,0,0, 0.2), 
-		inset 0 0 1px 2px rgba(255,255,255,0.9),
-		inset 0 -10px 15px rgba(0,0,0,0.1),
-		0 6px 7px rgba(0,0,0,0.3),
-		0 4px 1px rgba(0,0,0,0.5);
+ul.nr-controls li:hover {
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 0 1px 2px rgba(255, 255, 255, 0.9), inset 0 -10px 15px rgba(0, 0, 0, 0.1), 0 6px 7px rgba(0, 0, 0, 0.3), 0 4px 1px rgba(0, 0, 0, 0.5);
 }
+
 
 /* Pressed (active) */
-ul.nr-controls li.nr-control-active{
-	height: 50px;
-	margin-top: 2px;
-	box-shadow: 
-		inset 0 0 0 1px rgba(0,0,0, 0.18), 
-		inset 0 0 1px 2px rgba(255,255,255,0.5),
-		inset 0 -6px 5px rgba(0,0,0,0.1),
-		0 6px 7px rgba(0,0,0,0.3),
-		0 2px 1px rgba(0,0,0,0.5);
 
+ul.nr-controls li.nr-control-active {
+    height: 50px;
+    margin-top: 2px;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18), inset 0 0 1px 2px rgba(255, 255, 255, 0.5), inset 0 -6px 5px rgba(0, 0, 0, 0.1), 0 6px 7px rgba(0, 0, 0, 0.3), 0 2px 1px rgba(0, 0, 0, 0.5);
 }
+
 
 /* Activated */
-ul.nr-controls li.nr-control-pressed,
-ul.nr-controls li.nr-control-active.nr-control-pressed{
-	height: 50px;
 
-	margin-top: 4px;
-	box-shadow: 
-		inset 0 0 0 1px rgba(0,0,0, 0.2), 
-		inset 0 0 5px 1px rgba(255,255,255,0.5),
-		inset 0 -10px 15px rgba(0,0,0,0.2),
-		0 7px 5px rgba(255,255,255,0.5);
+ul.nr-controls li.nr-control-pressed, ul.nr-controls li.nr-control-active.nr-control-pressed {
+    height: 50px;
+    margin-top: 4px;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 0 5px 1px rgba(255, 255, 255, 0.5), inset 0 -10px 15px rgba(0, 0, 0, 0.2), 0 7px 5px rgba(255, 255, 255, 0.5);
 }
-
-
-
-
 
 
 /*----------------------------
 	knobKnob Styles
 -----------------------------*/
-/* 	
-Background for the volume knob 
+
+
+/*
+Background for the volume knob
 See knobKnob.css for the knob style
 */
+
 .nr-volume-wrap {
-	width: 100px;
-	height: 100px;
-	position: absolute;
-	bottom: 8%;
-	left: 2%;
-	margin-left: -318px;
-	background: #ddd no-repeat center top;
-	border: 1px solid rgba(0,0,0,0.1);
-	border-radius: 50%;
-	padding: 8px;
-	box-shadow: 
-		inset 0 1px 0px rgba(0,0,0,0.05),
-		0 1px 0 rgba(255,255,255,0.6),
-		0 -1px 0 rgba(255,255,255,0.4),
-		inset 0 2px 19px rgba(0,0,0,0.05),
-		0 2px 1px rgba(0,0,0,0.06);
-	-webkit-box-sizing: content-box;
-	-moz-box-sizing: content-box;
-	box-sizing: content-box;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    bottom: 8%;
+    left: 2%;
+    margin-left: -318px;
+    background: #ddd no-repeat center top;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    padding: 8px;
+    box-shadow: inset 0 1px 0px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.6), 0 -1px 0 rgba(255, 255, 255, 0.4), inset 0 2px 19px rgba(0, 0, 0, 0.05), 0 2px 1px rgba(0, 0, 0, 0.06);
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
 }
 
 .nr-volume-wrap:after {
-	content: 'Volume';
-	margin-top: 15px;
-	display: block;
+    content: 'Volume';
+    margin-top: 15px;
+    display: block;
 }
+
 
 /* Text style for controls */
-ul.nr-controls li,
-.nr-volume-wrap:after {
-	/*font-family: 'Aldrich';*/
-	font-size: 10px;
-	font-weight: 300;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	text-shadow: 0 1px 1px rgba(255,255,255,0.8);
+
+ul.nr-controls li, .nr-volume-wrap:after {
+    /*font-family: 'Aldrich';*/
+    font-size: 10px;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
 }
 
 .knob {
-	width: 100px;
-	height: 100px;
-	position: relative;
+    width: 100px;
+    height: 100px;
+    position: relative;
 }
 
 .knob .top {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	z-index: 10;
-	cursor: default !important;
-	border-radius: 50%;
-	box-shadow: inset 0 0 3px 2px rgba(255,255,255,0.6);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    cursor: default !important;
+    border-radius: 50%;
+    box-shadow: inset 0 0 3px 2px rgba(255, 255, 255, 0.6);
 }
 
 .knob .base {
-	width: 100%;
-	height: 100%;
-	box-shadow: 0 5px 0 #555, 0px 5px 5px black;
-	position: absolute;
-	z-index: 1;
-	border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 5px 0 #555, 0px 5px 5px black;
+    position: absolute;
+    z-index: 1;
+    border-radius: 50%;
 }
 
 .knob .top:after {
-	content: '';
-	width: 4px;
-	height: 4px;
-	background-color: #666;
-	position: absolute;
-	top: 50%;
-	margin-top: -2px;
-	left: 4px;
-	border-radius: 50%;
-	cursor: default !important;
-	box-shadow:  
-		0 0 1px #5a5a5a inset, 
-		1px -1px 1px rgba(255,255,255,0.5);
+    content: '';
+    width: 4px;
+    height: 4px;
+    background-color: #666;
+    position: absolute;
+    top: 50%;
+    margin-top: -2px;
+    left: 4px;
+    border-radius: 50%;
+    cursor: default !important;
+    box-shadow: 0 0 1px #5a5a5a inset, 1px -1px 1px rgba(255, 255, 255, 0.5);
 }
 
 .knob [draggable] {
-  -moz-user-select:  none;
-  -webkit-user-select:  none;
-  user-select:  none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 }

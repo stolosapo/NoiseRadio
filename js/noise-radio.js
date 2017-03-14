@@ -12,7 +12,7 @@
 
 	$.NoiseRadio.defaults		= {
 
-		sources			: [ 
+		sources			: [
 
 			{ src: "noise/PinkNoise.mp3", timerId: undefined, iceCastStats: "", type: "audio/mpeg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
 			{ src: "noise/PinkNoise.ogg", timerId: undefined, iceCastStats: "", type: "audio/ogg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
@@ -26,7 +26,7 @@
 		preload			: "none",
 		loop			: true,
 		fallbackMessage	: 'Your browser does not support the <code>audio</code> element.',
-		
+
 		/* volumeType = knob, controls */
 		volumeType		: "knob",
 		initialVolume	: 0.7
@@ -138,7 +138,7 @@
 
 			if (document.createElement('audio').canPlayType) {
 
-				if (!document.createElement('audio').canPlayType('audio/mpeg') && 
+				if (!document.createElement('audio').canPlayType('audio/mpeg') &&
 					!document.createElement('audio').canPlayType('audio/ogg')) {
 
 					// TODO: Error!!!
@@ -163,7 +163,7 @@
 
 			var _self = this;
 
-			
+
 			if (this.options.volumeType === 'controls') {
 
 				this.$cVolUp	= $( '<li class="nr-control-button nr-control-vol-up">+<span></span></li>' );
@@ -184,9 +184,9 @@
 					snap : 10,
 					value: 359 * this.options.initialVolume,
 					turn : function( ratio ) {
-						
+
 						_self._changeVolume( ratio );
-					
+
 					}
 				});
 
@@ -394,7 +394,7 @@
 
 			this.$audioEl.on( 'progress', function(e) {
 
-				if (this.paused) { 
+				if (this.paused) {
 					return;
 				};
 
@@ -479,9 +479,9 @@
 			$button.addClass( 'nr-control-pressed' );
 
 			setTimeout( function() {
-				
-				$button.removeClass( 'nr-control-pressed' );	
-				
+
+				$button.removeClass( 'nr-control-pressed' );
+
 			}, 100 );
 
 		},
@@ -498,7 +498,7 @@
 			this.$cPause.removeClass( pressedClass );
 			this.$cStop.removeClass( pressedClass );
 			this.$cReset.removeClass( pressedClass );
-			
+
 			if (this.options.volumeType === 'controls') {
 
 				this.$cVolUp.removeClass( pressedClass );
@@ -518,7 +518,7 @@
 		_changeVolume		: function( ratio ) {
 
 			this.audio.volume = ratio;
-			
+
 		},
 
 		_findSource			: function() {
@@ -529,7 +529,7 @@
 			$.each(this.options.sources, function( i, s ) {
 
 				if (current.endsWith(s.src)) {
-					
+
 					currentSource = s;
 
 				}
@@ -554,7 +554,7 @@
 				found 	= curSrc.endsWith(src.src);
 
 				if (found && foundCnt === 0) {
-					
+
 					foundCnt++;
 
 				}
@@ -608,7 +608,7 @@
 			var height;
 
 			if (source.imgWidth && source.imgHeight) {
-				
+
 				width = source.imgWidth;
 				height = source.imgHeight;
 
@@ -786,56 +786,56 @@
 		_progressBar		: function( progress ) {
 
 			var text;
-			
+
 			if (progress % 18 == 0) {
 				text = "[===         ]";
 			}
-			else if (progress % 18 == 1) {			
+			else if (progress % 18 == 1) {
 				text = "[ ===        ]";
 			}
-			else if (progress % 18 == 2) {			
+			else if (progress % 18 == 2) {
 				text = "[  ===       ]";
 			}
-			else if (progress % 18 == 3) {			
+			else if (progress % 18 == 3) {
 				text = "[   ===      ]";
 			}
-			else if (progress % 18 == 4) {			
+			else if (progress % 18 == 4) {
 				text = "[    ===     ]";
 			}
-			else if (progress % 18 == 5) {			
+			else if (progress % 18 == 5) {
 				text = "[     ===    ]";
 			}
-			else if (progress % 18 == 6) {			
+			else if (progress % 18 == 6) {
 				text = "[      ===   ]";
 			}
-			else if (progress % 18 == 7) {			
+			else if (progress % 18 == 7) {
 				text = "[       ===  ]";
 			}
-			else if (progress % 18 == 8) {			
+			else if (progress % 18 == 8) {
 				text = "[        === ]";
 			}
-			else if (progress % 18 == 9) {			
+			else if (progress % 18 == 9) {
 				text = "[         ===]";
 			}
-			else if (progress % 18 == 10) {			
+			else if (progress % 18 == 10) {
 				text = "[       ===  ]";
 			}
-			else if (progress % 18 == 11) {			
+			else if (progress % 18 == 11) {
 				text = "[      ===   ]";
 			}
-			else if (progress % 18 == 12) {			
+			else if (progress % 18 == 12) {
 				text = "[     ===    ]";
 			}
-			else if (progress % 18 == 13) {			
+			else if (progress % 18 == 13) {
 				text = "[    ===     ]";
 			}
-			else if (progress % 18 == 14) {			
+			else if (progress % 18 == 14) {
 				text = "[   ===      ]";
 			}
-			else if (progress % 18 == 15) {			
+			else if (progress % 18 == 15) {
 				text = "[  ===       ]";
 			}
-			else if (progress % 18 == 16) {			
+			else if (progress % 18 == 16) {
 				text = "[ ===        ]";
 			}
 			else {
@@ -853,7 +853,7 @@
 			if (progress % 4 == 0) {
 				text = "|";
 			}
-			else if (progress % 4 == 1) {	
+			else if (progress % 4 == 1) {
 				text = "/";
 			}
 			else if (progress % 4 == 2) {
@@ -873,9 +873,9 @@
 			var minutes = parseInt( totalSeconds / 60 ) % 60;
 			var seconds = totalSeconds % 60;
 
-			var text = 
-			(hours < 10 ? "0" + hours : hours) + ":" + 
-			(minutes < 10 ? "0" + minutes : minutes) + ":" + 
+			var text =
+			(hours < 10 ? "0" + hours : hours) + ":" +
+			(minutes < 10 ? "0" + minutes : minutes) + ":" +
 			(seconds  < 10 ? "0" + seconds : seconds);
 
 			return text;
@@ -908,50 +908,50 @@
 			clearTimeout( source.timerId );
 		},
 
-		_readIceCastInfo	: function( source ) {
+		_readIceCastInfo	: function(source) {
 
-			var _self = this;
-			var url = source.iceCastStats;
+		    var _self = this;
+		    var url = source.iceCastStats;
 
-			if (!url) {
-				return false;
-			};
+		    if (!url) {
+		        return false;
+		    };
 
-			this._requestGET( url, function( response ) {
+		    this._requestGET(url, function(response) {
 
 
-				if (response == undefined) {
-					return;
-				}
+		        if (response == undefined) {
+		            return;
+		        }
 
-				var index 		= response.indexOf( source.src );
-				var untilMe		= response.substring( 0, index );
-				var prevIndex	= untilMe.lastIndexOf( '{' );
-				var nextIndex 	= response.indexOf( '}', index );
+		        var index = response.indexOf(source.src);
+		        var untilMe = response.substring(0, index);
+		        var prevIndex = untilMe.lastIndexOf('{');
+		        var nextIndex = response.indexOf('}', index);
 
-				var me 			= response.substring( prevIndex, nextIndex + 1 );
+		        var me = response.substring(prevIndex, nextIndex + 1);
 
- 				var iceSource	= JSON.parse( me );
+		        var iceSource = JSON.parse(me);
 
- 				_self._applyIceCastInfo( source, iceSource );
- 				
+		        _self._applyIceCastInfo(source, iceSource);
 
-				// var iceStats 	= JSON.parse( response );
 
-				// var iceSource 	= $.grep( iceStats.icestats.source, function( v ) {
+		        // var iceStats 	= JSON.parse( response );
 
-				// 	return v.listenurl === source.src;
+		        // var iceSource 	= $.grep( iceStats.icestats.source, function( v ) {
 
-				// } );
+		        // 	return v.listenurl === source.src;
 
-				// if (iceSource.length) {
+		        // } );
 
-				// 	_self._applyIceCastInfo( source, iceSource[ 0 ] );
-				// };
+		        // if (iceSource.length) {
 
-			} );
+		        // 	_self._applyIceCastInfo( source, iceSource[ 0 ] );
+		        // };
 
-			return true;
+		    });
+
+		    return true;
 		},
 
 		_applyIceCastInfo	: function( source, sourceInfo ) {
@@ -961,18 +961,17 @@
 
 		},
 
-		_requestGET 		: function( url, callback ) {
+		_requestGET		: function(url, callback) {
 
-			$.ajax({
-				type: "GET",
-				url: url,
-				dataType: "text",
-				crossDomain: true,
-				success: callback,
-				error: function( jqXHR, textStatus, errorThrown ) {
-	            	console.log( jqXHR, textStatus, errorThrown );
-	            }
-	        });
+		    $.ajax({
+		        type: "GET",
+		        url: url,
+		        dataType: "text",
+		        success: callback,
+		        error: function(jqXHR, textStatus, errorThrown) {
+		            console.log(jqXHR, textStatus, errorThrown);
+		        }
+		    });
 
 		},
 
@@ -982,51 +981,51 @@
 	/* Noise Radio Factory */
 
 	$.fn.noiseRadio			= function( options ) {
-		
+
 		if ( typeof options === 'string' ) {
-			
+
 			var args = Array.prototype.slice.call( arguments, 1 );
-			
+
 			this.each(function() {
-			
+
 				var instance = $.data( this, 'noiseRadio' );
-				
+
 				if ( !instance ) {
 
 					window.console.error( "cannot call methods on noiseRadio prior to initialization; " +
 					"attempted to call method '" + options + "'" );
 					return;
-				
+
 				}
-				
+
 				if ( !$.isFunction( instance[ options ] ) || options.charAt(0) === "_" ) {
 
 					window.console.error( "no such method '" + options + "' for noiseRadio instance" );
 					return;
-				
+
 				}
-				
+
 				instance[ options ].apply( instance, args );
-			
+
 			});
-		
-		} 
+
+		}
 		else {
-		
+
 			this.each(function() {
-			
+
 				var instance = $.data( this, 'noiseRadio' );
-				
+
 				if ( !instance ) {
 					$.data( this, 'noiseRadio', new $.NoiseRadio( options, this ) );
 				}
 
 			});
-		
+
 		}
-		
+
 		return this;
-		
+
 	};
 
 
@@ -1041,25 +1040,25 @@
 	 * @url			http://tutorialzine.com/2011/11/pretty-switches-css3-jquery/
 	 * @license		MIT License
 	 */
-	 
+
 	 $.fn.knobKnob 				= function( props ) {
-	
+
 		var options = $.extend({
 			snap: 0,
 			value: 0,
 			turn: function() {}
 		}, props || {});
-	
+
 		var tpl = 	'<div class="knob">\
 						<div class="top"></div>\
 						<div class="base"></div>\
 					</div>';
-	
+
 		return this.each( function() {
-			
+
 			var el = $( this );
 			el.append( tpl );
-			
+
 			var knob 		= $( '.knob', el ),
 				knobTop 	= knob.find( '.top' ),
 				startDeg 	= -1,
@@ -1067,7 +1066,7 @@
 				rotation 	= 0,
 				lastDeg 	= 0,
 				doc 		= $( document );
-			
+
 			if (options.value > 0 && options.value <= 359) {
 
 				rotation = lastDeg = currentDeg = options.value;
@@ -1075,42 +1074,42 @@
 				options.turn( currentDeg / 359 );
 
 			}
-			
+
 			knob.on( 'mousedown touchstart', function(e) {
-			
+
 				e.preventDefault();
-			
+
 				var offset = knob.offset();
 				var center = {
 					y : offset.top + knob.height() / 2,
 					x : offset.left + knob.width() / 2
 				};
-				
+
 				var a, b, deg, tmp,
 					rad2deg = 180 / Math.PI;
-				
+
 				knob.on( 'mousemove.rem touchmove.rem', function(e) {
-					
+
 					e 	= ( e.originalEvent.touches ) ? e.originalEvent.touches[0] : e;
-					
+
 					a 	= center.y - e.pageY;
 					b 	= center.x - e.pageX;
 					deg = Math.atan2( a, b ) * rad2deg;
-					
+
 					// we have to make sure that negative
 					// angles are turned into positive:
 					if (deg < 0) {
 						deg = 360 + deg;
 					}
-					
+
 					// Save the starting position of the drag
 					if (startDeg == -1) {
 						startDeg = deg;
 					}
-					
+
 					// Calculating the current rotation
 					tmp = Math.floor( ( deg - startDeg ) + rotation );
-					
+
 					// Making sure the current rotation
 					// stays between 0 and 359
 					if ( tmp < 0 ) {
@@ -1119,40 +1118,40 @@
 					else if ( tmp > 359 ) {
 						tmp = tmp % 360;
 					}
-					
+
 					// Snapping in the off position:
 					if ( options.snap && tmp < options.snap ) {
 						tmp = 0;
 					}
-					
+
 					// This would suggest we are at an end position;
 					// we need to block further rotation.
 					if (Math.abs( tmp - lastDeg ) > 180) {
 						return false;
 					}
-					
+
 					currentDeg = tmp;
 					lastDeg = tmp;
-		
+
 					knobTop.css( 'transform', 'rotate(' + ( currentDeg ) + 'deg)' );
 					options.turn( currentDeg / 360 );
 
 				} );
-			
+
 
 				doc.on( 'mouseup.rem  touchend.rem', function() {
 
 					knob.off('.rem');
 					doc.off('.rem');
-					
+
 					// Saving the current rotation
 					rotation = currentDeg;
-					
+
 					// Marking the starting degree as invalid
 					startDeg = -1;
 
 				} );
-			
+
 			} );
 
 		} );

@@ -1,81 +1,82 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" >
-	<head>
-	<meta name="description" content="Noise Radio"/>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-		<title>The First Kube :: Radio</title> 
+<head>
+	<meta name="description" content="Noise Radio" />
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<link rel="stylesheet" type="text/css" href="css/noise-radio.css" />
+	<title>The First Kube :: Radio</title>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-		<script src="js/noise-radio.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/noise-radio.css" />
 
-		<script type="text/javascript">	
-			
-			$(document).ready(function() {
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="js/noise-radio.js"></script>
 
-				/* Create a new Singleton Radio Player Element */
-				$( 'body' ).noiseRadio( {
+	<script type="text/javascript">
+		$(document).ready(function() {
 
-					sources			: [ 
+			/* Create a new Singleton Radio Player Element */
+			$('body').noiseRadio({
 
-						{ 
-							src: "http://giss.tv:8000/thefirstkube.mp3",
-							iceCastStats: "icecast-info-error-example.json", /* http://giss.tv:8000/status-json.xsl icecast-info-example.json */
-							type: "audio/mpeg", 
-							title: ".. dance dance dance dance dance to the radio ..", 
-							imgWidth: "576px", 
-							imgHeight: "382px", 
-							images: [
-								'img/pic1.jpg',
-								'img/pic2.jpg',
-								'img/pic3.jpg',
-								'img/pic4.jpg'
-								] 
-						},
+				sources: [
 
-						{ 
-							src: "http://giss.tv:8001/thefirstkube.mp3", 
-							iceCastStats: "http://giss.tv:8001/status-json.xsl",
-							type: "audio/mpeg", 
-							title: ":: Failover", 
-							imgWidth: "576px", 
-							imgHeight: "382px", 
-							images: [
-								'img/pic1.jpg',
-								'img/pic2.jpg',
-								'img/pic3.jpg',
-								'img/pic4.jpg'
-								] 
-						},
+					{
+						src: "http://giss.tv:8000/thefirstkube.mp3",
+						iceCastStats: "icecast-info-error-example.json",
+						/* http://giss.tv:8000/status-json.xsl icecast-info-example.json */
+						type: "audio/mpeg",
+						title: ".. dance dance dance dance dance to the radio ..",
+						imgWidth: "576px",
+						imgHeight: "382px",
+						images: [
+							'img/pic1.jpg',
+							'img/pic2.jpg',
+							'img/pic3.jpg',
+							'img/pic4.jpg'
+						]
+					},
 
-						{ 
-							src: "noise/PinkNoise.mp3", 
-							type: "audio/mpeg", 
-							title: "Down", 
-							images: [ 'img/noise.gif' ] 
-						},
+					{
+						src: "http://giss.tv:8001/thefirstkube.mp3",
+						iceCastStats: "http://giss.tv:8001/status-json.xsl",
+						type: "audio/mpeg",
+						title: ":: Failover",
+						imgWidth: "576px",
+						imgHeight: "382px",
+						images: [
+							'img/pic1.jpg',
+							'img/pic2.jpg',
+							'img/pic3.jpg',
+							'img/pic4.jpg'
+						]
+					},
 
-						{ 
-							src: "noise/PinkNoise.ogg", 
-							type: "audio/ogg", 
-							title: "Down", 
-							images: [ 'img/noise.gif' ] 
-						}
-					],
+					{
+						src: "noise/PinkNoise.mp3",
+						type: "audio/mpeg",
+						title: "Down",
+						images: ['img/noise.gif']
+					},
 
-				} );
-					
+					{
+						src: "noise/PinkNoise.ogg",
+						type: "audio/ogg",
+						title: "Down",
+						images: ['img/noise.gif']
+					}
+				],
+
 			});
 
-		</script>
+		});
+	</script>
 
-	</head>
+</head>
 
-	<body>
-		
-	</body>
+<body>
+
+</body>
+
 </html>
