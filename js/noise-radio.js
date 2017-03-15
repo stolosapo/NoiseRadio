@@ -478,7 +478,7 @@
 
 			$button.addClass( 'nr-control-pressed' );
 
-			setTimeout( function() {
+			setTimeout( function( ) {
 
 				$button.removeClass( 'nr-control-pressed' );
 
@@ -490,7 +490,7 @@
 
 			var pressedClass = 'nr-control-active';
 
-			if (button === 'volUp' || button === 'volDown' ) {
+			if ( button === 'volUp' || button === 'volDown' ) {
 				return;
 			}
 
@@ -499,7 +499,7 @@
 			this.$cStop.removeClass( pressedClass );
 			this.$cReset.removeClass( pressedClass );
 
-			if (this.options.volumeType === 'controls') {
+			if ( this.options.volumeType === 'controls' ) {
 
 				this.$cVolUp.removeClass( pressedClass );
 				this.$cVolDown.removeClass( pressedClass );
@@ -521,14 +521,14 @@
 
 		},
 
-		_findSource			: function() {
+		_findSource			: function( ) {
 
 			var current = this.audio.currentSrc;
 			var currentSource = {};
 
-			$.each(this.options.sources, function( i, s ) {
+			$.each( this.options.sources, function( i, s ) {
 
-				if (current.endsWith(s.src)) {
+				if ( current.endsWith( s.src ) ) {
 
 					currentSource = s;
 
@@ -540,31 +540,31 @@
 
 		},
 
-		_findNextSource		: function(currentSrc, next) {
+		_findNextSource		: function( currentSrc, next ) {
 
-			var curSrc 		= currentSrc.src;
+			var curSrc = currentSrc.src;
 			var prevSrc;
 			var nextSrc;
 
-			var found 		= false;
-			var foundCnt	= 0;
+			var found = false;
+			var foundCnt = 0;
 
-			$.each(this.options.sources, function( index, src ) {
+			$.each( this.options.sources, function( index, src ) {
 
-				found 	= curSrc.endsWith(src.src);
+				found = curSrc.endsWith( src.src );
 
-				if (found && foundCnt === 0) {
+				if ( found && foundCnt === 0 ) {
 
 					foundCnt++;
 
 				}
-				else if (foundCnt === 1) {
+				else if ( foundCnt === 1 ) {
 
 					nextSrc = src;
 					return false;
 
 				}
-				else if (!found) {
+				else if ( !found ) {
 
 					prevSrc = src;
 
@@ -584,13 +584,13 @@
 
 			var len = source.images.length;
 
-			if (len === 1) {
+			if ( len === 1 ) {
 
 				return source.images[0];
 
 			}
 
-			var index = Math.floor( Math.random() * len ) + 1 ;
+			var index = Math.floor( Math.random( ) * len ) + 1 ;
 
 			return source.images[index - 1];
 
@@ -600,14 +600,14 @@
 
 			var img = this._getRandomImage( source );
 
-			if (!img) {
+			if ( !img ) {
 				return;
 			}
 
 			var width;
 			var height;
 
-			if (source.imgWidth && source.imgHeight) {
+			if ( source.imgWidth && source.imgHeight ) {
 
 				width = source.imgWidth;
 				height = source.imgHeight;
@@ -632,7 +632,7 @@
 
 			var title = source.title;
 
-			if (!title) {
+			if ( !title ) {
 				return;
 			};
 
@@ -640,79 +640,79 @@
 
 		},
 
-		_play 				: function() {
+		_play 				: function( ) {
 
 			this._updateButtons( 'play' );
 
-			this.audio.play();
+			this.audio.play( );
 
 		},
 
-		_pause 				: function() {
+		_pause 				: function( ) {
 
 			this._updateButtons( 'pause' );
 
-			this.audio.pause();
+			this.audio.pause( );
 
 		},
 
-		_prev 				: function() {
+		_prev 				: function( ) {
 
 			this._updateButtons( 'prev' );
 
-			var currentSource	= this._findSource();
-			var prevSource		= this._findNextSource(currentSource, false);
+			var currentSource	= this._findSource( );
+			var prevSource		= this._findNextSource( currentSource, false );
 
-			if (prevSource != undefined) {
+			if ( prevSource != undefined ) {
 				this.audio.src	= prevSource.src;
-				this._play();
+				this._play( );
 			}
 			else {
-				this._stop();
+				this._stop( );
 			};
 
 		},
 
-		_next 				: function() {
+		_next 				: function( ) {
 
 			this._updateButtons( 'next' );
 
-			var currentSource	= this._findSource();
-			var nextSource		= this._findNextSource(currentSource, true);
+			var currentSource	= this._findSource( );
+			var nextSource		= this._findNextSource( currentSource, true );
 
-			if (nextSource != undefined) {
+			if ( nextSource != undefined ) {
 				this.audio.src	= nextSource.src;
-				this._play();
+				this._play( );
 			}
 			else {
-				this._stop();
+				this._stop( );
 			};
 
 		},
 
-		_stop				: function() {
+		_stop				: function( ) {
 
 			this._updateButtons( 'stop' );
 
-			this.audio.removeAttribute("src");
-			this.audio.load();
+			this.audio.removeAttribute( "src" );
+			this.audio.load( );
 
 		},
 
-		_reset				: function() {
+		_reset				: function( ) {
 
 			this._updateButtons( 'reset' );
 
-			this._log("", true);
+			this._log( "", true );
 
-			this.audio.removeAttribute("src");
-			this.audio.load();
+			this.audio.removeAttribute( "src" );
+			this.audio.load( );
 
 		},
 
-		_volUp				: function() {
+		_volUp				: function( ) {
 
-			if (this.audio.volume >= 0.999) {
+			if ( this.audio.volume >= 0.999 ) {
 				return
 			};
 
@@ -722,9 +722,9 @@
 
 		},
 
-		_volDown			: function() {
+		_volDown			: function( ) {
 
-			if (this.audio.volume <= 0.001) {
+			if ( this.audio.volume <= 0.001 ) {
 				return
 			};
 
@@ -757,114 +757,6 @@
 		_changeTitle 		: function( title ) {
 
 			this.$statusElement.find( 'h1.nr-status-title' ).text( title );
-		},
-
-		_progressDot		: function( progress ) {
-
-			var text;
-
-			if (progress % 5 == 0) {
-				text = "";
-			}
-			else if (progress % 5 == 1) {
-				text = ".";
-			}
-			else if (progress % 5 == 2) {
-				text = "..";
-			}
-			else if (progress % 5 == 3) {
-				text = "...";
-			}
-			else {
-				text = "....";
-			}
-
-			return text;
-
-		},
-
-		_progressBar		: function( progress ) {
-
-			var text;
-
-			if (progress % 18 == 0) {
-				text = "[===         ]";
-			}
-			else if (progress % 18 == 1) {
-				text = "[ ===        ]";
-			}
-			else if (progress % 18 == 2) {
-				text = "[  ===       ]";
-			}
-			else if (progress % 18 == 3) {
-				text = "[   ===      ]";
-			}
-			else if (progress % 18 == 4) {
-				text = "[    ===     ]";
-			}
-			else if (progress % 18 == 5) {
-				text = "[     ===    ]";
-			}
-			else if (progress % 18 == 6) {
-				text = "[      ===   ]";
-			}
-			else if (progress % 18 == 7) {
-				text = "[       ===  ]";
-			}
-			else if (progress % 18 == 8) {
-				text = "[        === ]";
-			}
-			else if (progress % 18 == 9) {
-				text = "[         ===]";
-			}
-			else if (progress % 18 == 10) {
-				text = "[       ===  ]";
-			}
-			else if (progress % 18 == 11) {
-				text = "[      ===   ]";
-			}
-			else if (progress % 18 == 12) {
-				text = "[     ===    ]";
-			}
-			else if (progress % 18 == 13) {
-				text = "[    ===     ]";
-			}
-			else if (progress % 18 == 14) {
-				text = "[   ===      ]";
-			}
-			else if (progress % 18 == 15) {
-				text = "[  ===       ]";
-			}
-			else if (progress % 18 == 16) {
-				text = "[ ===        ]";
-			}
-			else {
-				text = "[===         ]";
-			}
-
-			return text;
-
-		},
-
-		_progressStar		: function( progress ) {
-
-			var text;
-
-			if (progress % 4 == 0) {
-				text = "|";
-			}
-			else if (progress % 4 == 1) {
-				text = "/";
-			}
-			else if (progress % 4 == 2) {
-				text = "-";
-			}
-			else {
-				text = "\\";
-			}
-
-			return text;
-
 		},
 
 		_progressTime		: function( totalSeconds ) {
@@ -908,50 +800,49 @@
 			clearTimeout( source.timerId );
 		},
 
-		_readIceCastInfo	: function(source) {
+		_readIceCastInfo	: function( source ) {
 
-		    var _self = this;
-		    var url = source.iceCastStats;
+			var _self = this;
+			var url = source.iceCastStats;
 
-		    if (!url) {
-		        return false;
-		    };
+			if (!url) {
+				return false;
+			};
 
-		    this._requestGET(url, function(response) {
+			this._requestGET(url, function( response ) {
+
+				if ( response == undefined ) {
+					return;
+				}
+
+				var index = response.indexOf( source.src );
+				var untilMe = response.substring( 0, index );
+				var prevIndex = untilMe.lastIndexOf( '{' );
+				var nextIndex = response.indexOf( '}', index );
+
+				var me = response.substring( prevIndex, nextIndex + 1 );
+
+				var iceSource = JSON.parse( me );
+
+				_self._applyIceCastInfo( source, iceSource );
 
 
-		        if (response == undefined) {
-		            return;
-		        }
+				// var iceStats 	= JSON.parse( response );
 
-		        var index = response.indexOf(source.src);
-		        var untilMe = response.substring(0, index);
-		        var prevIndex = untilMe.lastIndexOf('{');
-		        var nextIndex = response.indexOf('}', index);
+				// var iceSource 	= $.grep( iceStats.icestats.source, function( v ) {
 
-		        var me = response.substring(prevIndex, nextIndex + 1);
+				// 	return v.listenurl === source.src;
 
-		        var iceSource = JSON.parse(me);
+				// } );
 
-		        _self._applyIceCastInfo(source, iceSource);
+				// if (iceSource.length) {
 
+				// 	_self._applyIceCastInfo( source, iceSource[ 0 ] );
+				// };
 
-		        // var iceStats 	= JSON.parse( response );
+			});
 
-		        // var iceSource 	= $.grep( iceStats.icestats.source, function( v ) {
-
-		        // 	return v.listenurl === source.src;
-
-		        // } );
-
-		        // if (iceSource.length) {
-
-		        // 	_self._applyIceCastInfo( source, iceSource[ 0 ] );
-		        // };
-
-		    });
-
-		    return true;
+			return true;
 		},
 
 		_applyIceCastInfo	: function( source, sourceInfo ) {
@@ -961,17 +852,17 @@
 
 		},
 
-		_requestGET		: function(url, callback) {
+		_requestGET		: function( url, callback ) {
 
-		    $.ajax({
-		        type: "GET",
-		        url: url,
-		        dataType: "text",
-		        success: callback,
-		        error: function(jqXHR, textStatus, errorThrown) {
-		            console.log(jqXHR, textStatus, errorThrown);
-		        }
-		    });
+			$.ajax({
+				type: "GET",
+				url: url,
+				dataType: "text",
+				success: callback,
+				error: function( jqXHR, textStatus, errorThrown ) {
+					console.log( jqXHR, textStatus, errorThrown );
+				}
+			});
 
 		},
 
