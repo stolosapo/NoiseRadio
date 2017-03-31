@@ -202,6 +202,10 @@
 				<section class="nr-status-prog-section">\
 					<p class="nr-status-proggress"></p>\
 				</section>\
+				<section class="nr-status-info">\
+					<p class="nr-status-info-artist"></p>\
+					<p class="nr-status-info-title"></p>\
+				</section>\
 			</article>';
 
 			this.$statusElement = $( template );
@@ -844,6 +848,9 @@
 
 			console.log( "Title", sourceInfo.title );
 			console.log( "Listeners", sourceInfo.listeners );
+
+			// this.$statusElement.find( 'p.nr-status-info-artist' ).text( sourceInfo.listeners );
+			// this.$statusElement.find( 'p.nr-status-info-title' ).text( sourceInfo.title );
 
 		},
 
