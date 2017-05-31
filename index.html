@@ -17,6 +17,9 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 
+
+			/* Fallback Radio-Stations came from: http://dir.xiph.org*/
+
 			/* Create a new Singleton Radio Player Element */
 			$('body').noiseRadio({
 
@@ -54,20 +57,19 @@
 					},
 
 					{
-						src: "http://giss.tv:8000/poderosast.mp3",
-						iceCastStats: "icecast-info-error-example.json",
-						type: "audio/mpeg",
-						title: "La Poderosa del Huila...El Poder de la Radio",
+						src: "http://radio.canstream.co.uk:8075/live.aac",
+						iceCastStats: "http://radio.canstream.co.uk:8075/status-json.xsl",
+						type: "audio/aac",
+						title: "Fallback to :: Jazz London Radio",
 						imgWidth: "576px",
 						imgHeight: "382px",
 						images: ['img/pic1.jpg']
 					},
 
 					{
-						src: "http://giss.tv:8000/radio-fmr.mp3",
-						iceCastStats: "icecast-info-error-example.json",
+						src: "http://streaming207.radionomy.com:80/-1JazzRadio",
 						type: "audio/mpeg",
-						title: "Fallback to :: Radio FMR",
+						title: "Fallback to :: Jazz Radio",
 						imgWidth: "576px",
 						imgHeight: "382px",
 						images: ['img/pic1.jpg']

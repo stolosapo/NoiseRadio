@@ -810,6 +810,45 @@
 
 			this._requestGET(url, function( response ) {
 
+				console.log(response);
+
+				if ( !response ) {
+					return;
+				}
+
+				var iceStats 	= response;
+
+				var iceSource 	= $.grep( iceStats.icestats.source, function( v ) {
+
+					return v.listenurl === source.src;
+
+				} );
+
+				if ( iceSource.length ) {
+
+					_self._applyIceCastInfo( source, iceSource[ 0 ] );
+				}
+				else {
+
+					console.log( "Cannot find status for '" + source.src + "' source" );
+				};
+
+			});
+
+			return true;
+		},
+
+		_readIceCastInfoPlain	: function( source ) {
+
+			var _self = this;
+			var url = source.iceCastStats;
+
+			if (!url) {
+				return false;
+			};
+
+			this._requestGET(url, function( response ) {
+
 				if ( response == undefined ) {
 					return;
 				}
@@ -856,10 +895,22 @@
 
 		_requestGET		: function( url, callback ) {
 
+			/* Plain Text */
+			// $.ajax({
+			// 	type: "GET",
+			// 	url: url,
+			// 	dataType: "text",
+			// 	success: callback,
+			// 	error: function( jqXHR, textStatus, errorThrown ) {
+			// 		console.log( jqXHR, textStatus, errorThrown );
+			// 	}
+			// });
+
 			$.ajax({
 				type: "GET",
 				url: url,
-				dataType: "text",
+				crossDomain: true,
+				dataType: "jsonp",
 				success: callback,
 				error: function( jqXHR, textStatus, errorThrown ) {
 					console.log( jqXHR, textStatus, errorThrown );
