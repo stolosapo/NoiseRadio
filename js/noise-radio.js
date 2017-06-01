@@ -910,7 +910,7 @@
 				type: "GET",
 				url: url,
 				crossDomain: true,
-				dataType: "jsonp",
+				dataType: "json",
 				success: callback,
 				error: function( jqXHR, textStatus, errorThrown ) {
 					console.log( jqXHR, textStatus, errorThrown );
