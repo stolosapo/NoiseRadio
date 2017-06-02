@@ -358,10 +358,8 @@
 				_self._showTitle( currentSource );
 				_self._showRandomImage( currentSource );
 
-				// _self._removeTimerInfo( currentSource );
-				// _self._registerTimerInfo( currentSource );
-
-				_self._readIceCastInfo( currentSource );
+				_self._removeTimerInfo( currentSource, true );
+				_self._registerTimerInfo( currentSource );
 
 			} );
 
@@ -691,6 +689,8 @@
 
 		_stop				: function( ) {
 
+			this._removeTimerInfo( this._findSource(), true );
+
 			this._updateButtons( 'stop' );
 
 			this.audio.removeAttribute( "src" );
@@ -699,6 +699,8 @@
 		},
 
 		_reset				: function( ) {
+
+			this._removeTimerInfo( this._findSource(), true );
 
 			this._updateButtons( 'reset' );
 
@@ -777,26 +779,29 @@
 
 			var _self = this;
 
-			var isOk = _self._readIceCastInfo( source );
+			var id = setInterval( function( ) {
 
-			if (!isOk) {
-				return;
-			};
-
-			var id = setTimeout( function( ) {
-				_self._registerTimerInfo( source );
+				_self._readIceCastInfo( source );
 			}, 5000 );
 
 			source.timerId = id;
+			source.timerErrorCounter = 0;
 		},
 
-		_removeTimerInfo	: function( source ) {
+		_removeTimerInfo	: function( source, forced ) {
 
-			if (source.timerId == undefined) {
+			if ( !source.timerId ) {
 				return;
 			};
 
-			clearTimeout( source.timerId );
+			/* Remove timer after 3 failed tries */
+			source.timerErrorCounter = source.timerErrorCounter + 1;
+
+			if ( source.timerErrorCounter >= 3 || forced) {
+
+				clearInterval( source.timerId );
+				console.log( source, "timer cancled", forced );
+			}
 		},
 
 		_readIceCastInfo	: function( source ) {
@@ -808,11 +813,11 @@
 				return false;
 			};
 
-			this._requestGET(url, function( response ) {
-
-				console.log(response);
+			this._requestGET(source, url, function( response ) {
 
 				if ( !response ) {
+
+					_self._removeTimerInfo( source );
 					return;
 				}
 
@@ -831,52 +836,8 @@
 				else {
 
 					console.log( "Cannot find status for '" + source.src + "' source" );
+					_self._removeTimerInfo( source );
 				};
-
-			});
-
-			return true;
-		},
-
-		_readIceCastInfoPlain	: function( source ) {
-
-			var _self = this;
-			var url = source.iceCastStats;
-
-			if (!url) {
-				return false;
-			};
-
-			this._requestGET(url, function( response ) {
-
-				if ( response == undefined ) {
-					return;
-				}
-
-				var index = response.indexOf( source.src );
-				var untilMe = response.substring( 0, index );
-				var prevIndex = untilMe.lastIndexOf( '{' );
-				var nextIndex = response.indexOf( '}', index );
-
-				var me = response.substring( prevIndex, nextIndex + 1 );
-
-				var iceSource = JSON.parse( me );
-
-				_self._applyIceCastInfo( source, iceSource );
-
-
-				// var iceStats 	= JSON.parse( response );
-
-				// var iceSource 	= $.grep( iceStats.icestats.source, function( v ) {
-
-				// 	return v.listenurl === source.src;
-
-				// } );
-
-				// if (iceSource.length) {
-
-				// 	_self._applyIceCastInfo( source, iceSource[ 0 ] );
-				// };
 
 			});
 
@@ -893,18 +854,9 @@
 
 		},
 
-		_requestGET		: function( url, callback ) {
+		_requestGET		: function( source, url, callback ) {
 
-			/* Plain Text */
-			// $.ajax({
-			// 	type: "GET",
-			// 	url: url,
-			// 	dataType: "text",
-			// 	success: callback,
-			// 	error: function( jqXHR, textStatus, errorThrown ) {
-			// 		console.log( jqXHR, textStatus, errorThrown );
-			// 	}
-			// });
+			var _self = this;
 
 			$.ajax({
 				type: "GET",
@@ -913,7 +865,10 @@
 				dataType: "json",
 				success: callback,
 				error: function( jqXHR, textStatus, errorThrown ) {
+
 					console.log( jqXHR, textStatus, errorThrown );
+
+					_self._removeTimerInfo( source );
 				}
 			});
 
