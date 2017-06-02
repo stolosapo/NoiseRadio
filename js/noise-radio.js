@@ -548,6 +548,8 @@
 			var found = false;
 			var foundCnt = 0;
 
+			console.log(currentSrc, next);
+
 			$.each( this.options.sources, function( index, src ) {
 
 				found = curSrc.endsWith( src.src );
@@ -655,6 +657,8 @@
 
 		_prev 				: function( ) {
 
+			this._removeTimerInfo( this._findSource(), true );
+
 			this._updateButtons( 'prev' );
 
 			var currentSource	= this._findSource( );
@@ -671,6 +675,8 @@
 		},
 
 		_next 				: function( ) {
+
+			this._removeTimerInfo( this._findSource(), true );
 
 			this._updateButtons( 'next' );
 
