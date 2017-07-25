@@ -15,59 +15,59 @@ To install the `NoiseRadio` module, just copy the `js/noise-radio.js` and `css/n
 then in `<head>` section again, add a `<script>` as following
 
 ```HTML
-<script type="text/javascript">	
-			
+<script type="text/javascript">
+
 	$(document).ready(function() {
 
-		$( 'body' ).noiseRadio( {
+		$('body').noiseRadio( {
 
-			sources			: [ 
+			sources: [
 
-				{ 
-					src: "http://giss.tv:8000/thefirstkube.mp3", 
-					type: "audio/mpeg", 
-					title: ".. dance dance dance dance dance to the radio ..", 
-					imgWidth: "576px", 
-					imgHeight: "382px", 
+				{
+					src: "http://giss.tv:8000/thefirstkube.mp3",
+					type: "audio/mpeg",
+					title: ".. dance dance dance dance dance to the radio ..",
+					imgWidth: "576px",
+					imgHeight: "382px",
 					images: [
 						'img/pic1.jpg',
 						'img/pic2.jpg',
 						'img/pic3.jpg',
 						'img/pic4.jpg'
-						] 
+						]
 				},
 
-				{ 
-					src: "http://giss.tv:8001/thefirstkube.mp3", 
-					type: "audio/mpeg", 
-					title: ":: Failover", 
-					imgWidth: "576px", 
-					imgHeight: "382px", 
+				{
+					src: "http://giss.tv:8001/thefirstkube.mp3",
+					type: "audio/mpeg",
+					title: ":: Failover",
+					imgWidth: "576px",
+					imgHeight: "382px",
 					images: [
 						'img/pic1.jpg',
 						'img/pic2.jpg',
 						'img/pic3.jpg',
 						'img/pic4.jpg'
-						] 
+						]
 				},
 
-				{ 
-					src: "noise/PinkNoise.mp3", 
-					type: "audio/mpeg", 
-					title: "Down", 
-					images: [ 'img/noise.gif' ] 
+				{
+					src: "noise/PinkNoise.mp3",
+					type: "audio/mpeg",
+					title: "Down",
+					images: [ 'img/noise.gif' ]
 				},
 
-				{ 
-					src: "noise/PinkNoise.ogg", 
-					type: "audio/ogg", 
-					title: "Down", 
-					images: [ 'img/noise.gif' ] 
+				{
+					src: "noise/PinkNoise.ogg",
+					type: "audio/ogg",
+					title: "Down",
+					images: [ 'img/noise.gif' ]
 				}
 			],
 
 		} );
-			
+
 	});
 
 </script>
@@ -87,7 +87,7 @@ In order to configure the `NoiseRadio` module, we have to pass in the `noiseRadi
 ```JavaScript
 {
 
-	sources			: [ 
+	sources: [
 
 		{ src: "noise/PinkNoise.mp3", type: "audio/mpeg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
 		{ src: "noise/PinkNoise.ogg", type: "audio/ogg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
@@ -99,11 +99,11 @@ In order to configure the `NoiseRadio` module, we have to pass in the `noiseRadi
 
 	preload			: "none",
 	loop			: true,
-	fallbackMessage	: 'Your browser does not support the <code>audio</code> element.',
-	
+	fallbackMessage		: 'Your browser does not support the <code>audio</code> element.',
+
 	/* volumeType = knob, controls */
 	volumeType		: "knob",
-	initialVolume	: 0.7
+	initialVolume		: 0.7
 
 };
 ```
@@ -113,7 +113,7 @@ Let's see them one by one..
 
 #### Sources
 
-Here we add the radio sources that the module want to load. We can pass more than one. When one source fail to load then fallback to the next source. 
+Here we add the radio sources that the module want to load. We can pass more than one. When one source fail to load then fallback to the next source.
 
 Each `source` has the following extra configurations
 

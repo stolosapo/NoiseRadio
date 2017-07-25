@@ -21,15 +21,15 @@
 
 		showImage		: true,
 		showLogs		: false,
-		showNavButons	: false,
+		showNavButons		: false,
 
 		preload			: "none",
 		loop			: true,
-		fallbackMessage	: 'Your browser does not support the <code>audio</code> element.',
+		fallbackMessage		: 'Your browser does not support the <code>audio</code> element.',
 
 		/* volumeType = knob, controls */
 		volumeType		: "knob",
-		initialVolume	: 0.7
+		initialVolume		: 0.7
 
 	};
 
