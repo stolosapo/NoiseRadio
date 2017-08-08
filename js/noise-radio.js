@@ -35,7 +35,7 @@
 
 	$.NoiseRadio.prototype		= {
 
-		_init				: function ( options ) {
+		_init			: function ( options ) {
 
 			var _self = this;
 
@@ -110,31 +110,40 @@
 
 			var _self		= this;
 
+			this.$controlsCont	= $( '<div class="nr-controls-container"></div>' );
+
 			// this.$controls 	= $( '<ul class="nr-controls" />' );
-			this.$controls 	= $( '<ul class="nr-controls" style="display:none;"/>' );
+			this.$controls 		= $( '<ul class="nr-controls" style="display:none;"/>' );
 
 			this.$cPlay		= $( '<li class="nr-control-button nr-control-play">Play<span></span></li>' );
-			this.$cPause	= $( '<li class="nr-control-button nr-control-pause">Pause<span></span></li>' );
+			this.$cPause		= $( '<li class="nr-control-button nr-control-pause">Pause<span></span></li>' );
 
 			this.$cPrev		= $( '<li class="nr-control-button nr-control-prev">Prev<span></span></li>' );
 			this.$cNext		= $( '<li class="nr-control-button nr-control-next">Next<span></span></li>' );
 
 			this.$cStop		= $( '<li class="nr-control-button nr-control-stop">Stop<span></span></li>' );
-			this.$cReset	= $( '<li class="nr-control-button nr-control-reset">Reset<span></span></li>' );
+			this.$cReset		= $( '<li class="nr-control-button nr-control-reset">Reset<span></span></li>' );
 
-			this.$controls.append( this.$cPlay )
-						  .append( this.$cPause );
+			this.$controls
+				.append( this.$cPlay )
+				.append( this.$cPause );
 
 
 			if (this.options.showNavButons) {
-				this.$controls.append( this.$cPrev )
-							  .append( this.$cNext );
+
+				this.$controls
+					.append( this.$cPrev )
+					.append( this.$cNext );
 			};
 
 
-			this.$controls.append( this.$cStop )
-						  .append( this.$cReset )
-						  .appendTo( this.$containerEl );
+			this.$controls
+				.append( this.$cStop )
+				.append( this.$cReset )
+				.appendTo( this.$controlsCont );
+
+			this.$controlsCont
+				.appendTo( this.$containerEl );
 
 			if (document.createElement('audio').canPlayType) {
 
@@ -168,14 +177,15 @@
 				this.$cVolUp = $( '<li class="nr-control-button nr-control-vol-up">+<span></span></li>' );
 				this.$cVolDown = $( '<li class="nr-control-button nr-control-vol-down">-<span></span></li>' );
 
-				this.$controls.append( this.$cVolUp )
-							  .append( this.$cVolDown );
+				this.$controls
+					.append( this.$cVolUp )
+					.append( this.$cVolDown );
 
 			}
 			else if ( this.options.volumeType === 'knob' ) {
 
 				this.$volume = $( '<div style="display:none;" class="nr-volume-wrap"><div class="nr-volume-control"><div class="nr-volume-knob"></div></div></div>')
-				.appendTo( this.$containerEl );
+				.appendTo( this.$controlsCont );
 
 				this.$volume.show();
 				this.$volume.find( 'div.nr-volume-knob' ).knobKnob({
@@ -192,21 +202,21 @@
 
 		},
 
-		_createStatusElement: function( ) {
+		_createStatusElement	: function( ) {
 
 			var template = '\
-			<article class="nr-status-element">\
-				<header class="nr-status-header">\
+			<div class="nr-status-element">\
+				<div class="nr-status-header">\
 					<h1 class="nr-status-title"></h1>\
-				</header>\
-				<section class="nr-status-prog-section">\
+				</div>\
+				<div class="nr-status-prog-section">\
 					<p class="nr-status-proggress"></p>\
-				</section>\
-				<section class="nr-status-info">\
+				</div>\
+				<div class="nr-status-info">\
 					<p class="nr-status-info-artist"></p>\
 					<p class="nr-status-info-title"></p>\
-				</section>\
-			</article>';
+				</div>\
+			</div>';
 
 			this.$statusElement = $( template );
 
@@ -243,7 +253,7 @@
 
 		},
 
-		_loadEvents			: function( ) {
+		_loadEvents		: function( ) {
 
 			var _self = this;
 
@@ -520,7 +530,7 @@
 
 		},
 
-		_findSource			: function( ) {
+		_findSource		: function( ) {
 
 			var current = this.audio.currentSrc;
 			var currentSource = {};
@@ -627,7 +637,7 @@
 
 		},
 
-		_showTitle			: function( source ) {
+		_showTitle		: function( source ) {
 
 			var title = source.title;
 
@@ -639,7 +649,7 @@
 
 		},
 
-		_play 				: function( ) {
+		_play 			: function( ) {
 
 			this._updateButtons( 'play' );
 
@@ -647,7 +657,7 @@
 
 		},
 
-		_pause 				: function( ) {
+		_pause 			: function( ) {
 
 			this._updateButtons( 'pause' );
 
@@ -655,7 +665,7 @@
 
 		},
 
-		_prev 				: function( ) {
+		_prev 			: function( ) {
 
 			this._removeTimerInfo( this._findSource(), true );
 
@@ -674,7 +684,7 @@
 
 		},
 
-		_next 				: function( ) {
+		_next 			: function( ) {
 
 			this._removeTimerInfo( this._findSource(), true );
 
@@ -693,7 +703,7 @@
 
 		},
 
-		_stop				: function( ) {
+		_stop			: function( ) {
 
 			this._removeTimerInfo( this._findSource(), true );
 
@@ -704,7 +714,7 @@
 
 		},
 
-		_reset				: function( ) {
+		_reset			: function( ) {
 
 			this._removeTimerInfo( this._findSource(), true );
 
@@ -717,7 +727,7 @@
 
 		},
 
-		_volUp				: function( ) {
+		_volUp			: function( ) {
 
 			if ( this.audio.volume >= 0.999 ) {
 				return
@@ -729,7 +739,7 @@
 
 		},
 
-		_volDown			: function( ) {
+		_volDown		: function( ) {
 
 			if ( this.audio.volume <= 0.001 ) {
 				return
@@ -741,7 +751,7 @@
 
 		},
 
-		_log 				: function( message, clean ) {
+		_log 			: function( message, clean ) {
 
 			var _self = this;
 
