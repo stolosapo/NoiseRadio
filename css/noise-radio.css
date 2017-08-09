@@ -1,0 +1,19 @@
+div.noise-radio {
+        position: relative;
+        margin-right: auto;
+        margin-left: auto;
+        width: 576px;
+        background: #4c4e5a;
+        background: -webkit-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+        background: -moz-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+        background: -o-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+        background: -ms-linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+        background: linear-gradient(top, #4c4e5a 0%, #2c2d33 100%);
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+}
+
+.noise-radio .ns-controls-container {
+        /*position: relative;*/
+}
