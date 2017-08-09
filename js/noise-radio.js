@@ -213,8 +213,8 @@
 					<p class="nr-status-proggress"></p>\
 				</div>\
 				<div class="nr-status-info">\
-					<p class="nr-status-info-artist"></p>\
 					<p class="nr-status-info-title"></p>\
+					<p class="nr-status-info-listeners"></p>\
 				</div>\
 			</div>';
 
@@ -865,8 +865,8 @@
 			// console.log( "Title", sourceInfo.title );
 			// console.log( "Listeners", sourceInfo.listeners );
 
-			this.$statusElement.find( 'p.nr-status-info-artist' ).text( sourceInfo.listeners );
 			this.$statusElement.find( 'p.nr-status-info-title' ).text( sourceInfo.title );
+			this.$statusElement.find( 'p.nr-status-info-listeners' ).text( sourceInfo.listeners );
 
 		},
 
