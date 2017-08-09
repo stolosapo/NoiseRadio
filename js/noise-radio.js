@@ -12,29 +12,30 @@
 
 	$.NoiseRadio.defaults		= {
 
-		sources			: [ 
+		sources			: [
 
-			{ src: "noise/PinkNoise.mp3", type: "audio/mpeg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
-			{ src: "noise/PinkNoise.ogg", type: "audio/ogg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
+			{ src: "noise/PinkNoise.mp3", timerId: undefined, iceCastStats: "", type: "audio/mpeg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
+			{ src: "noise/PinkNoise.ogg", timerId: undefined, iceCastStats: "", type: "audio/ogg", title: "", imgWidth: "", imgHeight: "", images: [ 'img/noise.gif' ] },
 
 		],
 
 		showImage		: true,
 		showLogs		: false,
+		showNavButons		: false,
 
 		preload			: "none",
 		loop			: true,
-		fallbackMessage	: 'Your browser does not support the <code>audio</code> element.',
-		
+		fallbackMessage		: 'Your browser does not support the <code>audio</code> element.',
+
 		/* volumeType = knob, controls */
 		volumeType		: "knob",
-		initialVolume	: 0.7
+		initialVolume		: 0.7
 
 	};
 
 	$.NoiseRadio.prototype		= {
 
-		_init				: function ( options ) {
+		_init			: function ( options ) {
 
 			var _self = this;
 
@@ -49,7 +50,7 @@
 
 		},
 
-		_createPlayerDiv	: function() {
+		_createPlayerDiv	: function( ) {
 
 			this.$containerEl = $( '<div id="noise-radio" class="noise-radio"></div>' );
 
@@ -57,13 +58,22 @@
 
 		},
 
-		_createPlayer		: function() {
+		_createPlayer		: function( ) {
 
 			// Create the container of radio player
 			this._createPlayerDiv();
 
 			// create a new HTML5 audio element
-			this.$audioEl	= $( '<audio id="noise-element" preload="' + this.options.preload + '" loop="' + this.options.loop + '"><p>' + this.options.fallbackMessage + '</p></audio>' );
+			var template	='\
+			<audio id="noise-element" preload="' + this.options.preload + '">\
+				<p>' + this.options.fallbackMessage + '</p>\
+			</audio>';
+
+			this.$audioEl	= $( template );
+
+			if (this.options.loop) {
+				this.$audioEl.attr('loop', true);
+			};
 
 			this.$containerEl.prepend( this.$audioEl );
 
@@ -83,7 +93,7 @@
 
 		},
 
-		_loadSources		: function() {
+		_loadSources		: function( ) {
 
 			var _self = this;
 
@@ -96,27 +106,48 @@
 
 		},
 
-		_createControls		: function() {
+		_createControls		: function( ) {
 
 			var _self		= this;
 
+			this.$controlsCont	= $( '<div class="nr-controls-container"></div>' );
+
 			// this.$controls 	= $( '<ul class="nr-controls" />' );
-			this.$controls 	= $( '<ul class="nr-controls" style="display:none;"/>' );
+			this.$controls 		= $( '<ul class="nr-controls" style="display:none;"/>' );
 
 			this.$cPlay		= $( '<li class="nr-control-button nr-control-play">Play<span></span></li>' );
-			this.$cPause	= $( '<li class="nr-control-button nr-control-pause">Pause<span></span></li>' );
-			this.$cStop		= $( '<li class="nr-control-button nr-control-stop">Stop<span></span></li>' );
-			this.$cReset	= $( '<li class="nr-control-button nr-control-reset">Reset<span></span></li>' );
+			this.$cPause		= $( '<li class="nr-control-button nr-control-pause">Pause<span></span></li>' );
 
-			this.$controls.append( this.$cPlay )
-						  .append( this.$cPause )
-						  .append( this.$cStop )
-						  .append( this.$cReset )
-						  .appendTo( this.$containerEl );
+			this.$cPrev		= $( '<li class="nr-control-button nr-control-prev">Prev<span></span></li>' );
+			this.$cNext		= $( '<li class="nr-control-button nr-control-next">Next<span></span></li>' );
+
+			this.$cStop		= $( '<li class="nr-control-button nr-control-stop">Stop<span></span></li>' );
+			this.$cReset		= $( '<li class="nr-control-button nr-control-reset">Reset<span></span></li>' );
+
+			this.$controls
+				.append( this.$cPlay )
+				.append( this.$cPause );
+
+
+			if (this.options.showNavButons) {
+
+				this.$controls
+					.append( this.$cPrev )
+					.append( this.$cNext );
+			};
+
+
+			this.$controls
+				.append( this.$cStop )
+				.append( this.$cReset )
+				.appendTo( this.$controlsCont );
+
+			this.$controlsCont
+				.appendTo( this.$containerEl );
 
 			if (document.createElement('audio').canPlayType) {
 
-				if (!document.createElement('audio').canPlayType('audio/mpeg') && 
+				if (!document.createElement('audio').canPlayType('audio/mpeg') &&
 					!document.createElement('audio').canPlayType('audio/ogg')) {
 
 					// TODO: Error!!!
@@ -137,34 +168,33 @@
 
 		},
 
-		_createVolControls	: function() {
+		_createVolControls	: function( ) {
 
 			var _self = this;
 
-			
-			if (this.options.volumeType === 'controls') {
+			if ( this.options.volumeType === 'controls' ) {
 
-				this.$cVolUp	= $( '<li class="nr-control-button nr-control-vol-up">+<span></span></li>' );
-				this.$cVolDown	= $( '<li class="nr-control-button nr-control-vol-down">-<span></span></li>' );
+				this.$cVolUp = $( '<li class="nr-control-button nr-control-vol-up">+<span></span></li>' );
+				this.$cVolDown = $( '<li class="nr-control-button nr-control-vol-down">-<span></span></li>' );
 
-				this.$controls.append( this.$cVolUp )
-							  .append( this.$cVolDown );
+				this.$controls
+					.append( this.$cVolUp )
+					.append( this.$cVolDown );
 
 			}
+			else if ( this.options.volumeType === 'knob' ) {
 
-			else if (this.options.volumeType === 'knob') {
-
-				this.$volume 	= $( '<div style="display:none;" class="nr-volume-wrap"><div class="nr-volume-control"><div class="nr-volume-knob"></div></div></div>')
-				.appendTo( this.$containerEl );
+				this.$volume = $( '<div style="display:none;" class="nr-volume-wrap"><div class="nr-volume-control"><div class="nr-volume-knob"></div></div></div>')
+				.appendTo( this.$controlsCont );
 
 				this.$volume.show();
 				this.$volume.find( 'div.nr-volume-knob' ).knobKnob({
 					snap : 10,
 					value: 359 * this.options.initialVolume,
 					turn : function( ratio ) {
-						
+
 						_self._changeVolume( ratio );
-					
+
 					}
 				});
 
@@ -172,110 +202,129 @@
 
 		},
 
-		_createStatusElement: function() {
+		_createStatusElement	: function( ) {
 
 			var template = '\
-			<article class="nr-status-element">\
-				<header class="nr-status-header">\
+			<div class="nr-status-element">\
+				<div class="nr-status-header">\
 					<h1 class="nr-status-title"></h1>\
-				</header>\
-				<section class="nr-status-prog-section">\
+				</div>\
+				<div class="nr-status-prog-section">\
 					<p class="nr-status-proggress"></p>\
-				</section>\
-			</article>';
+				</div>\
+				<div class="nr-status-info">\
+					<p class="nr-status-info-artist"></p>\
+					<p class="nr-status-info-title"></p>\
+				</div>\
+			</div>';
 
-			this.$statusElement 	= $( template );
+			this.$statusElement = $( template );
 
 			this.$statusElement.appendTo( this.$containerEl );
-			this.$statusElement.show();
+			this.$statusElement.show( );
 
 		},
 
-		_createLogElement	: function() {
+		_createLogElement	: function( ) {
 
-			this.$logElement 		= $( '<textarea class="nr-log-element" readonly></textarea>' );
+			this.$logElement = $( '<textarea class="nr-log-element" readonly></textarea>' );
 
 			this.$logElement.appendTo( this.$containerEl );
 
 			if (this.options.showLogs) {
-
-				this.$logElement.show();
+				this.$logElement.show( );
 			}
 			else {
-				this.$logElement.hide()	;
+				this.$logElement.hide( )	;
 			}
 
 		},
 
-		_createImgElement	: function() {
+		_createImgElement	: function( ) {
 
-			if (this.options.showImage != true) {
+			if ( this.options.showImage != true ) {
 				return;
 			}
 
-			this.$imgElement 	= $( '<img class="nr-control-image"></img>' );
+			this.$imgElement = $( '<img class="nr-control-image"></img>' );
 
 			this.$imgElement.appendTo( this.$containerEl );
-			this.$imgElement.show();
+			this.$imgElement.show( );
 
 		},
 
-		_loadEvents			: function() {
+		_loadEvents		: function( ) {
 
 			var _self = this;
 
-			_self._loadAudioEvents();
-			_self._loadLoggingEvents();
-			_self._loadControlEvents();
+			_self._loadAudioEvents( );
+			_self._loadLoggingEvents( );
+			_self._loadControlEvents( );
 
 		},
 
-		_loadControlEvents	: function() {
+		_loadControlEvents	: function( ) {
 
 			var _self = this;
 
-			this.$cPlay.on( 'mousedown', function(e) {
+			this.$cPlay.on( 'mousedown', function( e ) {
 
 				_self._setButtonActive( $( this ) );
-				_self._play();
+				_self._play( );
 
 			} );
 
-			this.$cPause.on( 'mousedown', function(e) {
+			this.$cPause.on( 'mousedown', function( e ) {
 
 				_self._setButtonActive( $( this ) );
-				_self._pause();
+				_self._pause( );
 
 			} );
 
-			this.$cStop.on( 'mousedown', function(e) {
+			if (this.options.showNavButons) {
+				this.$cPrev.on( 'mousedown', function( e ) {
+
+					_self._setButtonActive( $( this ) );
+					_self._prev( );
+
+				} );
+
+				this.$cNext.on( 'mousedown', function( e ) {
+
+					_self._setButtonActive( $( this ) );
+					_self._next( );
+
+				} );
+			};
+
+			this.$cStop.on( 'mousedown', function( e ) {
 
 				_self._setButtonActive( $( this ) );
-				_self._stop();
+				_self._stop( );
 
 			} );
 
-			this.$cReset.on( 'mousedown', function(e) {
+			this.$cReset.on( 'mousedown', function( e ) {
 
 				_self._setButtonActive( $( this ) );
-				_self._reset();
+				_self._reset( );
 
 			} );
 
 
 			if (this.options.volumeType === "controls") {
 
-				this.$cVolUp.on( 'mousedown', function(e) {
+				this.$cVolUp.on( 'mousedown', function( e ) {
 
 					_self._setButtonActive( $( this ) );
-					_self._volUp();
+					_self._volUp( );
 
 				} );
 
-				this.$cVolDown.on( 'mousedown', function(e) {
+				this.$cVolDown.on( 'mousedown', function( e ) {
 
 					_self._setButtonActive( $( this ) );
-					_self._volDown();
+					_self._volDown( );
 
 				} );
 
@@ -283,7 +332,7 @@
 
 		},
 
-		_loadAudioEvents	: function() {
+		_loadAudioEvents	: function( ) {
 
 			var _self = this;
 
@@ -301,7 +350,7 @@
 
 				_self._log( log );
 
-				var currentSource = _self._findSource();
+				var currentSource = _self._findSource( );
 
 				_self._showTitle( currentSource );
 				_self._showRandomImage( currentSource );
@@ -314,22 +363,47 @@
 
 				_self._log( log );
 
-				var currentSource = _self._findSource();
+				var currentSource = _self._findSource( );
 
 				_self._showTitle( currentSource );
 				_self._showRandomImage( currentSource );
 
+				_self._removeTimerInfo( currentSource, true );
+				_self._registerTimerInfo( currentSource );
+
 			} );
+
+			if ( !this.options.loop ) {
+				this.$audioEl.on( 'ended', function( e ) {
+
+					var text = "Ended";
+
+					_self._changeStatus( text );
+
+					var currentSource = _self._findSource( );
+					var nextSource = _self._findNextSource( currentSource, true );
+
+					if ( nextSource != undefined ) {
+						this.src = nextSource.src;
+						this.play( );
+					}
+					else {
+						_self._stop();
+					};
+
+
+				} );
+			};
 
 		},
 
-		_loadLoggingEvents	: function() {
+		_loadLoggingEvents	: function( ) {
 
 			var _self = this;
 
-			this.$audioEl.on( 'progress', function(e) {
+			this.$audioEl.on( 'progress', function( e ) {
 
-				if (this.paused) { 
+				if (this.paused) {
 					return;
 				};
 
@@ -346,7 +420,7 @@
 			} );
 
 
-			this.$audioEl.on( 'playing', function(e) {
+			this.$audioEl.on( 'playing', function( e ) {
 
 				var text = "Playing";
 
@@ -355,7 +429,7 @@
 			} );
 
 
-			this.$audioEl.on( 'pause', function(e) {
+			this.$audioEl.on( 'pause', function( e ) {
 
 				var text = "Paused";
 
@@ -364,7 +438,7 @@
 			} );
 
 
-			this.$audioEl.on( 'play', function(e) {
+			this.$audioEl.on( 'play', function( e ) {
 
 				var text = "Play";
 
@@ -373,7 +447,7 @@
 			} );
 
 
-			this.$audioEl.on( 'seeked', function(e) {
+			this.$audioEl.on( 'seeked', function( e ) {
 
 				var text = "Seeked";
 
@@ -382,7 +456,7 @@
 			} );
 
 
-			this.$audioEl.on( 'seeking', function(e) {
+			this.$audioEl.on( 'seeking', function( e ) {
 
 				var text = "Seeking";
 
@@ -390,7 +464,7 @@
 
 			} );
 
-			this.$audioEl.on( 'waiting', function(e) {
+			this.$audioEl.on( 'waiting', function( e ) {
 
 				var text = "Waiting";
 
@@ -399,7 +473,7 @@
 			} );
 
 
-			this.$audioEl.on( 'emptied', function(e) {
+			this.$audioEl.on( 'emptied', function( e ) {
 
 				var text = "Stopped";
 
@@ -413,10 +487,10 @@
 
 			$button.addClass( 'nr-control-pressed' );
 
-			setTimeout( function() {
-				
-				$button.removeClass( 'nr-control-pressed' );	
-				
+			setTimeout( function( ) {
+
+				$button.removeClass( 'nr-control-pressed' );
+
 			}, 100 );
 
 		},
@@ -425,7 +499,7 @@
 
 			var pressedClass = 'nr-control-active';
 
-			if (button === 'volUp' || button === 'volDown' ) {
+			if ( button === 'volUp' || button === 'volDown' ) {
 				return;
 			}
 
@@ -433,8 +507,8 @@
 			this.$cPause.removeClass( pressedClass );
 			this.$cStop.removeClass( pressedClass );
 			this.$cReset.removeClass( pressedClass );
-			
-			if (this.options.volumeType === 'controls') {
+
+			if ( this.options.volumeType === 'controls' ) {
 
 				this.$cVolUp.removeClass( pressedClass );
 				this.$cVolDown.removeClass( pressedClass );
@@ -453,20 +527,18 @@
 		_changeVolume		: function( ratio ) {
 
 			this.audio.volume = ratio;
-			
+
 		},
 
-		_findSource			: function() {
+		_findSource		: function( ) {
 
 			var current = this.audio.currentSrc;
 			var currentSource = {};
 
-			$.each(this.options.sources, function( i, s ) {
+			$.each( this.options.sources, function( i, s ) {
 
-				var match = current + "$";
+				if ( current.endsWith( s.src ) ) {
 
-				if (s.src === current) {
-					
 					currentSource = s;
 
 				}
@@ -477,21 +549,57 @@
 
 		},
 
+		_findNextSource		: function( currentSrc, next ) {
+
+			var curSrc = currentSrc.src;
+			var prevSrc;
+			var nextSrc;
+
+			var found = false;
+			var foundCnt = 0;
+
+			console.log(currentSrc, next);
+
+			$.each( this.options.sources, function( index, src ) {
+
+				found = curSrc.endsWith( src.src );
+
+				if ( found && foundCnt === 0 ) {
+
+					foundCnt++;
+
+				}
+				else if ( foundCnt === 1 ) {
+
+					nextSrc = src;
+					return false;
+
+				}
+				else if ( !found ) {
+
+					prevSrc = src;
+
+				};
+
+			} );
+
+			return next ? nextSrc : prevSrc;
+
+		},
+
 		_getRandomImage		: function( source ) {
 
-			if (!source.images || !this.options.showImage) {
+			if ( !source.images || !this.options.showImage ) {
 				return;
 			}
 
 			var len = source.images.length;
 
-			if (len === 1) {
-
+			if ( len === 1 ) {
 				return source.images[0];
-
 			}
 
-			var index = Math.floor( Math.random() * len ) + 1 ;
+			var index = Math.floor( Math.random( ) * len ) + 1 ;
 
 			return source.images[index - 1];
 
@@ -501,15 +609,15 @@
 
 			var img = this._getRandomImage( source );
 
-			if (!img) {
+			if ( !img ) {
 				return;
 			}
 
 			var width;
 			var height;
 
-			if (source.imgWidth && source.imgHeight) {
-				
+			if ( source.imgWidth && source.imgHeight ) {
+
 				width = source.imgWidth;
 				height = source.imgHeight;
 
@@ -529,11 +637,11 @@
 
 		},
 
-		_showTitle			: function( source ) {
+		_showTitle		: function( source ) {
 
 			var title = source.title;
 
-			if (!title) {
+			if ( !title ) {
 				return;
 			};
 
@@ -541,45 +649,87 @@
 
 		},
 
-		_play 				: function() {
+		_play 			: function( ) {
 
 			this._updateButtons( 'play' );
 
-			this.audio.play();
+			this.audio.play( );
 
 		},
 
-		_pause 				: function() {
+		_pause 			: function( ) {
 
 			this._updateButtons( 'pause' );
 
-			this.audio.pause();
+			this.audio.pause( );
 
 		},
 
-		_stop				: function() {
+		_prev 			: function( ) {
+
+			this._removeTimerInfo( this._findSource(), true );
+
+			this._updateButtons( 'prev' );
+
+			var currentSource	= this._findSource( );
+			var prevSource		= this._findNextSource( currentSource, false );
+
+			if ( prevSource != undefined ) {
+				this.audio.src	= prevSource.src;
+				this._play( );
+			}
+			else {
+				this._stop( );
+			};
+
+		},
+
+		_next 			: function( ) {
+
+			this._removeTimerInfo( this._findSource(), true );
+
+			this._updateButtons( 'next' );
+
+			var currentSource	= this._findSource( );
+			var nextSource		= this._findNextSource( currentSource, true );
+
+			if ( nextSource != undefined ) {
+				this.audio.src	= nextSource.src;
+				this._play( );
+			}
+			else {
+				this._stop( );
+			};
+
+		},
+
+		_stop			: function( ) {
+
+			this._removeTimerInfo( this._findSource(), true );
 
 			this._updateButtons( 'stop' );
 
-			this.audio.removeAttribute("src");
-			this.audio.load();
+			this.audio.removeAttribute( "src" );
+			this.audio.load( );
 
 		},
 
-		_reset				: function() {
+		_reset			: function( ) {
+
+			this._removeTimerInfo( this._findSource(), true );
 
 			this._updateButtons( 'reset' );
 
-			this._log("", true);
+			this._log( "", true );
 
-			this.audio.removeAttribute("src");
-			this.audio.load();
+			this.audio.removeAttribute( "src" );
+			this.audio.load( );
 
 		},
 
-		_volUp				: function() {
+		_volUp			: function( ) {
 
-			if (this.audio.volume >= 0.999) {
+			if ( this.audio.volume >= 0.999 ) {
 				return
 			};
 
@@ -589,9 +739,9 @@
 
 		},
 
-		_volDown			: function() {
+		_volDown		: function( ) {
 
-			if (this.audio.volume <= 0.001) {
+			if ( this.audio.volume <= 0.001 ) {
 				return
 			};
 
@@ -601,7 +751,7 @@
 
 		},
 
-		_log 				: function( message, clean ) {
+		_log 			: function( message, clean ) {
 
 			var _self = this;
 
@@ -626,126 +776,117 @@
 			this.$statusElement.find( 'h1.nr-status-title' ).text( title );
 		},
 
-		_progressDot		: function( progress ) {
-
-			var text;
-
-			if (progress % 5 == 0) {
-				text = "";
-			}
-			else if (progress % 5 == 1) {
-				text = ".";
-			}
-			else if (progress % 5 == 2) {
-				text = "..";
-			}
-			else if (progress % 5 == 3) {
-				text = "...";
-			}
-			else {
-				text = "....";
-			}
-
-			return text;
-
-		},
-
-		_progressBar		: function( progress ) {
-
-			var text;
-			
-			if (progress % 18 == 0) {
-				text = "[===         ]";
-			}
-			else if (progress % 18 == 1) {			
-				text = "[ ===        ]";
-			}
-			else if (progress % 18 == 2) {			
-				text = "[  ===       ]";
-			}
-			else if (progress % 18 == 3) {			
-				text = "[   ===      ]";
-			}
-			else if (progress % 18 == 4) {			
-				text = "[    ===     ]";
-			}
-			else if (progress % 18 == 5) {			
-				text = "[     ===    ]";
-			}
-			else if (progress % 18 == 6) {			
-				text = "[      ===   ]";
-			}
-			else if (progress % 18 == 7) {			
-				text = "[       ===  ]";
-			}
-			else if (progress % 18 == 8) {			
-				text = "[        === ]";
-			}
-			else if (progress % 18 == 9) {			
-				text = "[         ===]";
-			}
-			else if (progress % 18 == 10) {			
-				text = "[       ===  ]";
-			}
-			else if (progress % 18 == 11) {			
-				text = "[      ===   ]";
-			}
-			else if (progress % 18 == 12) {			
-				text = "[     ===    ]";
-			}
-			else if (progress % 18 == 13) {			
-				text = "[    ===     ]";
-			}
-			else if (progress % 18 == 14) {			
-				text = "[   ===      ]";
-			}
-			else if (progress % 18 == 15) {			
-				text = "[  ===       ]";
-			}
-			else if (progress % 18 == 16) {			
-				text = "[ ===        ]";
-			}
-			else {
-				text = "[===         ]";
-			}
-
-			return text;
-
-		},
-
-		_progressStar		: function( progress ) {
-
-			var text;
-
-			if (progress % 4 == 0) {
-				text = "|";
-			}
-			else if (progress % 4 == 1) {	
-				text = "/";
-			}
-			else if (progress % 4 == 2) {
-				text = "-";
-			}
-			else {
-				text = "\\";
-			}
-
-			return text;
-
-		},
-
 		_progressTime		: function( totalSeconds ) {
 
 			var hours = parseInt( totalSeconds / 3600 ) % 24;
 			var minutes = parseInt( totalSeconds / 60 ) % 60;
 			var seconds = totalSeconds % 60;
 
-			var text = 
-			(hours < 10 ? "0" + hours : hours) + ":" + 
-			(minutes < 10 ? "0" + minutes : minutes) + ":" + 
+			var text =
+			(hours < 10 ? "0" + hours : hours) + ":" +
+			(minutes < 10 ? "0" + minutes : minutes) + ":" +
 			(seconds  < 10 ? "0" + seconds : seconds);
 
 			return text;
+
+		},
+
+		_registerTimerInfo	: function( source ) {
+
+			var _self = this;
+
+			var id = setInterval( function( ) {
+
+				_self._readIceCastInfo( source );
+			}, 5000 );
+
+			source.timerId = id;
+			source.timerErrorCounter = 0;
+		},
+
+		_removeTimerInfo	: function( source, forced ) {
+
+			if ( !source.timerId ) {
+				return;
+			};
+
+			/* Remove timer after 3 failed tries */
+			source.timerErrorCounter = source.timerErrorCounter + 1;
+
+			if ( source.timerErrorCounter >= 3 || forced) {
+
+				clearInterval( source.timerId );
+				console.log( source, "timer cancled", forced );
+			}
+		},
+
+		_readIceCastInfo	: function( source ) {
+
+			var _self = this;
+			var url = source.iceCastStats;
+
+			if (!url) {
+				return false;
+			};
+
+			this._requestGET(source, url, function( response ) {
+
+				if ( !response ) {
+
+					_self._removeTimerInfo( source );
+					return;
+				}
+
+				var iceStats 	= response;
+
+				var iceSource 	= $.grep( iceStats.icestats.source, function( v ) {
+
+					return v.listenurl === source.src;
+
+				} );
+
+				if ( iceSource.length ) {
+
+					_self._applyIceCastInfo( source, iceSource[ 0 ] );
+				}
+				else {
+
+					console.log( "Cannot find status for '" + source.src + "' source" );
+					_self._removeTimerInfo( source );
+				};
+
+			});
+
+			return true;
+		},
+
+		_applyIceCastInfo	: function( source, sourceInfo ) {
+
+			console.log( "Title", sourceInfo.title );
+			console.log( "Listeners", sourceInfo.listeners );
+
+			// this.$statusElement.find( 'p.nr-status-info-artist' ).text( sourceInfo.listeners );
+			// this.$statusElement.find( 'p.nr-status-info-title' ).text( sourceInfo.title );
+
+		},
+
+		_requestGET		: function( source, url, callback ) {
+
+			var _self = this;
+
+			$.ajax({
+				type: "GET",
+				url: url,
+				crossDomain: true,
+				dataType: "json",
+				success: callback,
+				error: function( jqXHR, textStatus, errorThrown ) {
+
+					console.log( jqXHR, textStatus, errorThrown );
+
+					_self._removeTimerInfo( source );
+				}
+			});
 
 		},
 
@@ -755,51 +896,51 @@
 	/* Noise Radio Factory */
 
 	$.fn.noiseRadio			= function( options ) {
-		
+
 		if ( typeof options === 'string' ) {
-			
+
 			var args = Array.prototype.slice.call( arguments, 1 );
-			
+
 			this.each(function() {
-			
+
 				var instance = $.data( this, 'noiseRadio' );
-				
+
 				if ( !instance ) {
 
 					window.console.error( "cannot call methods on noiseRadio prior to initialization; " +
 					"attempted to call method '" + options + "'" );
 					return;
-				
+
 				}
-				
+
 				if ( !$.isFunction( instance[ options ] ) || options.charAt(0) === "_" ) {
 
 					window.console.error( "no such method '" + options + "' for noiseRadio instance" );
 					return;
-				
+
 				}
-				
+
 				instance[ options ].apply( instance, args );
-			
+
 			});
-		
-		} 
+
+		}
 		else {
-		
+
 			this.each(function() {
-			
+
 				var instance = $.data( this, 'noiseRadio' );
-				
+
 				if ( !instance ) {
 					$.data( this, 'noiseRadio', new $.NoiseRadio( options, this ) );
 				}
 
 			});
-		
+
 		}
-		
+
 		return this;
-		
+
 	};
 
 
@@ -814,25 +955,25 @@
 	 * @url			http://tutorialzine.com/2011/11/pretty-switches-css3-jquery/
 	 * @license		MIT License
 	 */
-	 
+
 	 $.fn.knobKnob 				= function( props ) {
-	
+
 		var options = $.extend({
 			snap: 0,
 			value: 0,
 			turn: function() {}
 		}, props || {});
-	
+
 		var tpl = 	'<div class="knob">\
 						<div class="top"></div>\
 						<div class="base"></div>\
 					</div>';
-	
+
 		return this.each( function() {
-			
+
 			var el = $( this );
 			el.append( tpl );
-			
+
 			var knob 		= $( '.knob', el ),
 				knobTop 	= knob.find( '.top' ),
 				startDeg 	= -1,
@@ -840,7 +981,7 @@
 				rotation 	= 0,
 				lastDeg 	= 0,
 				doc 		= $( document );
-			
+
 			if (options.value > 0 && options.value <= 359) {
 
 				rotation = lastDeg = currentDeg = options.value;
@@ -848,42 +989,42 @@
 				options.turn( currentDeg / 359 );
 
 			}
-			
+
 			knob.on( 'mousedown touchstart', function(e) {
-			
+
 				e.preventDefault();
-			
+
 				var offset = knob.offset();
 				var center = {
 					y : offset.top + knob.height() / 2,
 					x : offset.left + knob.width() / 2
 				};
-				
+
 				var a, b, deg, tmp,
 					rad2deg = 180 / Math.PI;
-				
+
 				knob.on( 'mousemove.rem touchmove.rem', function(e) {
-					
+
 					e 	= ( e.originalEvent.touches ) ? e.originalEvent.touches[0] : e;
-					
+
 					a 	= center.y - e.pageY;
 					b 	= center.x - e.pageX;
 					deg = Math.atan2( a, b ) * rad2deg;
-					
+
 					// we have to make sure that negative
 					// angles are turned into positive:
 					if (deg < 0) {
 						deg = 360 + deg;
 					}
-					
+
 					// Save the starting position of the drag
 					if (startDeg == -1) {
 						startDeg = deg;
 					}
-					
+
 					// Calculating the current rotation
 					tmp = Math.floor( ( deg - startDeg ) + rotation );
-					
+
 					// Making sure the current rotation
 					// stays between 0 and 359
 					if ( tmp < 0 ) {
@@ -892,45 +1033,44 @@
 					else if ( tmp > 359 ) {
 						tmp = tmp % 360;
 					}
-					
+
 					// Snapping in the off position:
 					if ( options.snap && tmp < options.snap ) {
 						tmp = 0;
 					}
-					
+
 					// This would suggest we are at an end position;
 					// we need to block further rotation.
 					if (Math.abs( tmp - lastDeg ) > 180) {
 						return false;
 					}
-					
+
 					currentDeg = tmp;
 					lastDeg = tmp;
-		
+
 					knobTop.css( 'transform', 'rotate(' + ( currentDeg ) + 'deg)' );
 					options.turn( currentDeg / 360 );
 
 				} );
-			
+
 
 				doc.on( 'mouseup.rem  touchend.rem', function() {
 
 					knob.off('.rem');
 					doc.off('.rem');
-					
+
 					// Saving the current rotation
 					rotation = currentDeg;
-					
+
 					// Marking the starting degree as invalid
 					startDeg = -1;
 
 				} );
-			
+
 			} );
 
 		} );
 
 	};
-
 
 } )( window, jQuery );
