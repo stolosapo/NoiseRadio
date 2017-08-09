@@ -862,11 +862,11 @@
 
 		_applyIceCastInfo	: function( source, sourceInfo ) {
 
-			console.log( "Title", sourceInfo.title );
-			console.log( "Listeners", sourceInfo.listeners );
+			// console.log( "Title", sourceInfo.title );
+			// console.log( "Listeners", sourceInfo.listeners );
 
-			// this.$statusElement.find( 'p.nr-status-info-artist' ).text( sourceInfo.listeners );
-			// this.$statusElement.find( 'p.nr-status-info-title' ).text( sourceInfo.title );
+			this.$statusElement.find( 'p.nr-status-info-artist' ).text( sourceInfo.listeners );
+			this.$statusElement.find( 'p.nr-status-info-title' ).text( sourceInfo.title );
 
 		},
 
