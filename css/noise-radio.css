@@ -7,7 +7,12 @@ Step 3 – Container Styles
 First let’s add some reset styles for all the elements that we will use in the container.
 */
 
-.noise-radio, .noise-radio div, .noise-radio img, .noise-radio ul, .noise-radio textarea, .noise-radio label {
+.noise-radio, 
+.noise-radio div, 
+.noise-radio img, 
+.noise-radio ul, 
+.noise-radio textarea, 
+.noise-radio label {
     margin: 0;
     padding: 0;
     border: none;
@@ -87,17 +92,20 @@ div.noise-radio {
     background-image: url('../img/blueprint-dark.png');
 }
 
-.noise-radio .nr-status-element, .noise-radio .nr-status-header, .noise-radio .nr-status-prog-section {
+.noise-radio .nr-status-element, 
+.noise-radio .nr-status-header, 
+.noise-radio .nr-status-prog-section,
+.noise-radio .nr-status-info {
     position: absolute;
 }
 
 .noise-radio .nr-status-element {
     width: 99%;
-    height: 50px;
+    height: 75px;
     top: 20px;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom-color: rgba(255, 255, 255, 0.6);
-    border-radius: 6px;
+    border-radius: 2px;
     padding: 10px 0.5% 10px 0.5%;
     background-color: rgba(213, 231, 242, 0.4577);
     background-image: url('../img/blueprint-dark.png');
@@ -118,13 +126,19 @@ div.noise-radio {
     text-shadow: 1px 1px 1px rgba(0, 0, 0, .5);
 }
 
-.noise-radio .nr-status-prog-section {
+.noise-radio .nr-status-prog-section,
+.noise-radio .nr-status-info {
     font-size: 10px;
     font-weight: 300;
     padding: 10px 0.5% 10px 0.5%;
     text-transform: uppercase;
     letter-spacing: 1px;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.noise-radio .nr-status-info {
+	width: 80%;
+	top: 32px;
 }
 
 .noise-radio .nr-control-image {
