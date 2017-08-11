@@ -141,6 +141,12 @@ div.noise-radio {
 	top: 32px;
 }
 
+.noise-radio .nr-status-info .nr-status-info-title {
+	font-weight: 100;
+    	text-transform: none;
+    	text-shadow: 0 1px 1px rgba(189, 189, 189, 0.8);
+}
+
 .noise-radio .nr-status-info .nr-status-info-listeners {
 	font-style: italic;
     	font-weight: 100;
