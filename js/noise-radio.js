@@ -29,7 +29,9 @@
 
 		/* volumeType = knob, controls */
 		volumeType		: "knob",
-		initialVolume		: 0.7
+		initialVolume		: 0.7,
+
+		timerInterval		: 5000
 
 	};
 
@@ -798,7 +800,8 @@
 			var id = setInterval( function( ) {
 
 				_self._readIceCastInfo( source );
-			}, 5000 );
+
+			}, _self.options.timerInterval );
 
 			source.timerId = id;
 			source.timerErrorCounter = 0;
