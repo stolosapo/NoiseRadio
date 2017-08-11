@@ -215,8 +215,8 @@
 					<p class="nr-status-proggress"></p>\
 				</div>\
 				<div class="nr-status-info">\
-					<p class="nr-status-info-listeners"></p>\
 					<p class="nr-status-info-title"></p>\
+					<p class="nr-status-info-listeners"></p>\
 				</div>\
 			</div>';
 

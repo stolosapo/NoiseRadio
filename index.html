@@ -42,7 +42,7 @@
 
 					{
 						src: "http://giss.tv:8001/thefirstkube.mp3",
-						iceCastStats: "http://giss.tv:8001/status-json.xsl",
+						iceCastStats: "https://noise-module-service.herokuapp.com/icestats/get?url=http://giss.tv:8001/status-json.xsl&mountpoint=thefirstkube.mp3",
 						type: "audio/mpeg",
 						title: ":: Failover",
 						imgWidth: "576px",
@@ -57,7 +57,7 @@
 
 					{
 						src: "http://radio.canstream.co.uk:8075/live.aac",
-						iceCastStats: "http://radio.canstream.co.uk:8075/status-json.xsl",
+						iceCastStats: "https://noise-module-service.herokuapp.com/icestats/get?url=http://radio.canstream.co.uk:8075/status-json.xsl",
 						type: "audio/aac",
 						title: "Fallback to :: Jazz London Radio",
 						imgWidth: "576px",
@@ -67,7 +67,7 @@
 
 					{
 						src: "http://radio.canstream.co.uk:8075/live.mp3",
-						iceCastStats: "http://radio.canstream.co.uk:8075/status-json.xsl",
+						iceCastStats: "https://noise-module-service.herokuapp.com/icestats/get?url=http://radio.canstream.co.uk:8075/status-json.xsl",
 						type: "audio/mpeg",
 						title: "Fallback to :: Jazz London Radio",
 						imgWidth: "576px",

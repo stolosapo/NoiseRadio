@@ -141,9 +141,21 @@ div.noise-radio {
 	top: 32px;
 }
 
+.noise-radio .nr-status-info .nr-status-info-listeners {
+	font-style: italic;
+    	font-weight: 100;
+    	text-shadow: 1px;
+    	text-transform: none;
+}
+
 .noise-radio .nr-control-image {
     border-radius: 12px;
 }
+
+
+
+
+/* Controls list items */
 
 ul.nr-controls {
     list-style: none;
@@ -160,9 +172,6 @@ ul.nr-controls {
     box-sizing: content-box;
     border-radius: 12px;
 }
-
-
-/* Controls list items */
 
 ul.nr-controls li {
     display: block;
