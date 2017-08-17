@@ -870,7 +870,7 @@
 
 			this.$statusElement
 				.find( 'p.nr-status-info-listeners' )
-				.text( 'Listeners: ' + sourceInfo.listeners );
+				.text( 'Listeners: ' + sourceInfo.listeners + '/' + sourceInfo.listener_peak );
 
 			this.$statusElement.find( 'p.nr-status-info-title' ).text( sourceInfo.title );
 
