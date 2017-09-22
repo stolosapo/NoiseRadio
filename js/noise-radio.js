@@ -370,6 +370,7 @@
 				_self._showTitle( currentSource );
 				_self._showRandomImage( currentSource );
 
+				_self._resetIceCastInfo( );
 				_self._removeTimerInfo( currentSource, true );
 				_self._registerTimerInfo( currentSource );
 
@@ -856,6 +857,7 @@
 
 					console.log( "Cannot find status for '" + source.src + "' source" );
 					_self._removeTimerInfo( source );
+					_self._resetIceCastInfo( );
 				};
 
 			});
@@ -873,6 +875,14 @@
 				.text( 'Listeners: ' + sourceInfo.listeners + '/' + sourceInfo.listener_peak );
 
 			this.$statusElement.find( 'p.nr-status-info-title' ).text( sourceInfo.title );
+
+		},
+
+		_resetIceCastInfo	: function( source, sourceInfo ) {
+
+			this.$statusElement.find( 'p.nr-status-info-listeners' ).text( '' );
+
+			this.$statusElement.find( 'p.nr-status-info-title' ).text( '' );
 
 		},
 
