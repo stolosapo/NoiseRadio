@@ -843,7 +843,16 @@
 
 				var iceStats 	= response;
 
-				var iceSource 	= $.grep( iceStats.icestats.source, function( v ) {
+				var arrSources = [];
+
+				if ( iceStats.icestats.source instanceof Array) {
+					arrSources = iceStats.icestats.source;
+				}
+				else if ( iceStats.icestats.source !== undefined ) {
+					arrSources.push(iceStats.icestats.source);
+				}
+
+				var iceSource 	= $.grep( arrSources, function( v ) {
 
 					return v.listenurl === source.src;
 
