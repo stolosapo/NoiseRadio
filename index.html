@@ -7,131 +7,67 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>The First Kube :: Radio</title>
+	<meta property="og:title" content="Noise Radio">
+    <meta property="og:description" content="HTML5 audio wrapper, suitable for WebRadio streams and more...">
 
-	<link rel="stylesheet" type="text/css" href="css/noise-radio.css" />
+	<title>Noise Radio</title>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script src="js/noise-radio.js"></script>
-
-	<script type="text/javascript">
-		$(document).ready(function() {
-
-
-			/* Fallback Radio-Stations came from: http://dir.xiph.org*/
-
-			/* Create a new Singleton Radio Player Element */
-			$('body').noiseRadio({
-
-				sources: [
-
-					{
-						src: "http://giss.tv:8000/thefirstkube.mp3",
-						iceCastStats: "https://noise-module-service.herokuapp.com/icestats/get?url=http://giss.tv:8000/status-json.xsl&mountpoint=thefirstkube.mp3",
-						type: "audio/mpeg",
-						title: ".. dance dance dance dance dance to the radio ..",
-						imgWidth: "576px",
-						imgHeight: "382px",
-						images: [
-							'img/pic1.jpg',
-							'img/pic2.jpg',
-							'img/pic3.jpg',
-							'img/pic4.jpg'
-						]
-					},
-
-					{
-						src: "http://giss.tv:8001/thefirstkube.mp3",
-						iceCastStats: "https://noise-module-service.herokuapp.com/icestats/get?url=http://giss.tv:8001/status-json.xsl&mountpoint=thefirstkube.mp3",
-						type: "audio/mpeg",
-						title: ":: Failover",
-						imgWidth: "576px",
-						imgHeight: "382px",
-						images: [
-							'img/pic1.jpg',
-							'img/pic2.jpg',
-							'img/pic3.jpg',
-							'img/pic4.jpg'
-						]
-					},
-
-					{
-						src: "http://noiseradio.ddns.net:8000/thefirstkube.mp3",
-						iceCastStats: "https://noise-module-service.herokuapp.com/icestats/get?url=http://noiseradio.ddns.net:8000/status-json.xsl&mountpoint=thefirstkube.mp3",
-						type: "audio/mpeg",
-						title: ":: Failover",
-						imgWidth: "576px",
-						imgHeight: "382px",
-						images: [
-							'img/pic1.jpg',
-							'img/pic2.jpg',
-							'img/pic3.jpg',
-							'img/pic4.jpg'
-						]
-					},
-
-					{
-						src: "http://radio.canstream.co.uk:8075/live.aac",
-						iceCastStats: "https://noise-module-service.herokuapp.com/icestats/get?url=http://radio.canstream.co.uk:8075/status-json.xsl",
-						type: "audio/aac",
-						title: "Fallback to :: Jazz London Radio",
-						imgWidth: "576px",
-						imgHeight: "382px",
-						images: ['img/pic5.jpg', 'img/pic6.jpg']
-					},
-
-					{
-						src: "http://radio.canstream.co.uk:8075/live.mp3",
-						iceCastStats: "https://noise-module-service.herokuapp.com/icestats/get?url=http://radio.canstream.co.uk:8075/status-json.xsl",
-						type: "audio/mpeg",
-						title: "Fallback to :: Jazz London Radio",
-						imgWidth: "576px",
-						imgHeight: "382px",
-						images: ['img/pic5.jpg', 'img/pic6.jpg']
-					},
-
-					{
-						src: "http://streaming207.radionomy.com:80/-1JazzRadio",
-						type: "audio/mpeg",
-						title: "Fallback to :: Jazz Radio",
-						imgWidth: "576px",
-						imgHeight: "382px",
-						images: ['img/pic5.jpg', 'img/pic6.jpg']
-					},
-
-					{
-						src: "http://streaming206.radionomy.com/ReggaeNation",
-						type: "audio/mpeg",
-						title: "Fallback to :: Reggae Nation",
-						imgWidth: "576px",
-						imgHeight: "382px",
-						images: ['img/pic2.jpg']
-					},
-
-					{
-						src: "noise/PinkNoise.mp3",
-						type: "audio/mpeg",
-						title: "Down",
-						images: ['img/noise.gif']
-					},
-
-					{
-						src: "noise/PinkNoise.ogg",
-						type: "audio/ogg",
-						title: "Down",
-						images: ['img/noise.gif']
-					}
-				],
-
-			});
-
-		});
-	</script>
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	
+    <script src="js/icecast-info.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/example.js"></script>
 
 </head>
 
 <body>
+	<header>
+        <h2>Noise Radio</h2>
+        <p>HTML5 audio wrapper, suitable for WebRadio streams and more...</p>
+    </header>
 
+	<main>
+        <div class="audio-container">
+            <audio id="radio-audio">
+                <source src="https://stream.thefirstkube.net/stream.mp3" type="audio/mpeg">
+                <source src="assets/noise/PinkNoise.mp3" type="audio/mpeg">
+                <p>Your browser does not support the audio tag.</p>
+            </audio>
+        </div>
+
+        <div class="controls-container">
+            <ul class="controls">
+                <li><label id="play">play</label></li>
+                <li><label id="reload">reload</label></li>
+                <li><a id="listen" target="_blank">stream</a></li>
+            </ul>
+
+            <div class="volumecontainer">
+                <input type="range" min="0.00" max="1.00" step="0.01" class="volume" id="volume">
+            </div>
+        </div>
+
+        <div class="status-container">
+            <div class="time-container">
+                <span class="time"><label id="current-time" ></label></span>
+                <span class="duration"><label id="current-duration"></label></span>
+            </div>
+            <div class="progress">
+                <progress id="current-progressbar"></progress>
+            </div>
+            <div class="listeners-container" id="listeners-container">
+                <span class="listeners"><label id="current-listeners"></label></span>
+                <span class="listener-peak"><label id="current-listener-peak"></label></span>
+            </div>
+            <div class="track-container" id="track-container">
+                <span class="track"><label id="current-track"></label></span>
+            </div>
+        </div>
+    </main>
+
+    <script type="text/javascript">
+        radioInit();
+    </script>
 </body>
 
 </html>
