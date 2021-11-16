@@ -190,6 +190,7 @@ All the existing valid event that the `<audio>` element supports are:
 
 The `icecast-info` is a class that is usefull when we want to use an Icecast server as a streaming server and when we want to get some informations abaout the stream that we want like current track, listeners and listeners peek count..
 In order to use it we must create an `IcecastInfo` class with some params as config or the defaults as following
+Also in order to be able for the library to work the Icecast streaming server should have a running `/status-json.xsl` endpoint
 
 ```JavaScript
 IcecastInfo.defaults = {
